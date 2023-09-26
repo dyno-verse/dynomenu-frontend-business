@@ -20,7 +20,7 @@ jobs:
             export NVM_DIR=~/.nvm
             source ~/.nvm/nvm.sh
             echo "1 -- Remove existing directory"
-            rm -rf menu-service
+            rm -rf web-business
             echo "2 -- Cloning Repository"
             git clone git@github.com:dyno-verse/web-business.git
             cd web-business
