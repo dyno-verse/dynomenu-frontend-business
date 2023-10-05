@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-row items-center w-1/2 mx-auto justify-center justify-items-center align-middle mt-20">
+  <div class="flex flex-row w-4/5 md:w-1/2 lg:w-2/3 items-center  mx-auto justify-center justify-items-center align-middle mt-20">
     <Card>
       <div class="space-y-6" action="#">
         <div class="flex w-full justify-center items-center">
