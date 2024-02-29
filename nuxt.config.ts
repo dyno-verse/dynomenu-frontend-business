@@ -14,8 +14,16 @@ export default defineNuxtConfig({
     },
     devtools: {enabled: true},
     modules: [
+        // '@sidebase/nuxt-auth',
         '@nuxtjs/tailwindcss'
-    ],
+    ]
+    // auth: {
+    //     // origin: process.env.ORIGIN,
+    //     isEnabled: true,
+    //     // globalAppMiddleware: true,
+    //     origin: 'https://business.dynomenu.com',
+    // }
+    ,
     // css: ['~/assets/css/main.css'],
     postcss: {
         plugins: {
