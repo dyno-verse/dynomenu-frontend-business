@@ -1,5 +1,6 @@
 import {defineNuxtPlugin} from '#app';
 import {$fetch, FetchOptions} from "ofetch";
+import BusinessModule from "../repository/modules/business";
 // import BusinessModule from "~/repository/modules/business";
 // import MenuCategoryModule from "~/repository/modules/category";
 // import MenuModule from "~/repository/modules/menu";
@@ -8,7 +9,7 @@ import {$fetch, FetchOptions} from "ofetch";
 
 /** ApiInstance interface provides us with good typing */
 interface IApiInstance {
-    // business: BusinessModule,
+    business: BusinessModule,
     // menuCategory: MenuCategoryModule,
     // menu: MenuModule,
     // demo: RequestADemoModule
@@ -30,7 +31,7 @@ export default defineNuxtPlugin(nuxtApp => {
 
     /** an object containing all repositories we need to expose */
     const modules: IApiInstance = {
-        // business: new BusinessModule(apiFetcher),
+        business: new BusinessModule(apiFetcher),
         // menuCategory: new MenuCategoryModule(apiFetcher),
         // menu: new MenuModule(apiFetcher),
         // demo: new RequestADemoModule(apiFetcher)
