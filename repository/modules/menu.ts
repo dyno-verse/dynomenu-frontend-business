@@ -2,6 +2,7 @@ import HttpFactory from "~/repository/factory";
 import {IBusinessInfo, IMenu} from "~/repository/models/ApiResponse";
 import {IMenuDetail} from "~/repository/models/ApiResponse";
 import {IApiResponse} from "~/repository/models/appData";
+import {ICreateMenu} from "#build/repository/models/inputModels";
 
 class MenuModule extends HttpFactory {
     private RESOURCE = '/menu';
@@ -12,6 +13,14 @@ class MenuModule extends HttpFactory {
     // async getBusinessInfoBySlug(slug: string): Promise<IBusinessInfo> {
     //     return await this.call<IBusinessInfo>('GET', `${this.RESOURCE}/${slug}`)
     // }
+    //
+    // async addMenu(){
+    //     return await this.call<IMenu>('POST', `${this.RESOURCE}/${id}`)
+    // }
+
+    async create(request: ICreateMenu) {
+        return await this.call<ICreateMenu>('POST', `${this.RESOURCE}`, request);
+    }
 
     async getMenusByBusinessId(id: string) {
         return await this.call<IMenu>('GET', `${this.RESOURCE}/${id}`)
