@@ -2,8 +2,8 @@
   <div>
     <div class="flex flex-row justify-between">
       <Breadcrumb :pages="pages"/>
-      <Button :type="ButtonTypes.Primary" :label="'Add Menu'" data-modal-target="crud-modal"
-              data-modal-toggle="crud-modal"/>
+      <Button :type="ButtonTypes.Primary" :label="'Add Menu'" data-modal-target="crudModal"
+              data-modal-toggle="crudModal"/>
     </div>
 
     <div class="w-full py-10">
@@ -13,7 +13,7 @@
             <div class="flex flex-row justify-between space-x-2">
               <div>
                 <h4 class="font-bold text-2xl">{{ menu.name }}</h4>
-                <p>{{menu.description}}</p>
+                <p>{{ menu.description }}</p>
               </div>
 
               <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots"
@@ -33,7 +33,7 @@
 
     <!------>
     <!-- Main modal -->
-    <div id="crud-modal" tabindex="-1" aria-hidden="true"
+    <div id="crudModal" ref="crudModal" tabindex="-1" aria-hidden="true"
          class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
       <div class="relative p-4 w-full max-w-md max-h-full">
         <!-- Modal content -->
@@ -45,7 +45,7 @@
             </h3>
             <button type="button"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                    data-modal-toggle="crud-modal">
+                    data-modal-toggle="crudModal">
               <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                    viewBox="0 0 14 14">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -92,7 +92,7 @@
 </template>
 
 <script lang="ts" setup>
-import {initFlowbite} from "flowbite";
+import {initFlowbite, Modal, ModalOptions} from "flowbite";
 
 definePageMeta({
   layout: "main",
@@ -105,7 +105,10 @@ import {BreadCrumbNav} from "#build/components/units/Breadcrumb.vue";
 
 const {$api} = useNuxtApp();
 const menus = ref([]);
+const modal = ref({});
 const isPending = ref(true);
+const crudModal = ref(null);
+
 const pages = [
   {
     name: 'Menu',
@@ -135,6 +138,19 @@ const getBusinessBySlug = (slug: string) => {
 
 onMounted(() => {
   initFlowbite();
+
+  const options: ModalOptions = {
+    placement: 'top-left',
+    backdrop: 'dynamic',
+    backdropClasses: 'bg-gray-900 bg-opacity-50 dark:bg-opacity-80 fixed inset-0 z-40',
+    closable: true
+  };
+
+  // if (crudModal.value !== null) {
+    modal.value = new Modal(crudModal.value, options);
+  // }
+  // modal.value.show();
+
 
   getBusinessBySlug("silmo-restaurant")
 })
