@@ -4,3 +4,13 @@ export interface ICreateRequestDemo {
     phoneNumber: string
     email: string
 }
+
+{
+
+}
+
+export interface ICreateMenu{
+    name: string
+    description: string
+    branchId: string
+}

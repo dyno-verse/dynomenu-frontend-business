@@ -3,8 +3,7 @@
     <div v-if="!isPending">
       <div class="flex flex-row justify-between">
         <Breadcrumb :pages="pages"/>
-        <Button :type="ButtonTypes.Primary" :label="'Add Category'" data-modal-target="crud-modal"
-                data-modal-toggle="crud-modal"/>
+        <Button :type="ButtonTypes.Primary" :label="'Add Category'"/>
       </div>
       <h1 class="font-bold text-4xl my-5">{{ menusDetails.name }}</h1>
 
