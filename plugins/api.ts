@@ -3,7 +3,7 @@ import {$fetch, FetchOptions} from "ofetch";
 import BusinessModule from "../repository/modules/business";
 import MenuModule from "~/repository/modules/menu";
 // import BusinessModule from "~/repository/modules/business";
-// import MenuCategoryModule from "~/repository/modules/category";
+import MenuCategoryModule from "~/repository/modules/category";
 // import MenuModule from "~/repository/modules/menu";
 // import RequestADemoModule from "~/repository/modules/demo";
 
@@ -11,7 +11,7 @@ import MenuModule from "~/repository/modules/menu";
 /** ApiInstance interface provides us with good typing */
 interface IApiInstance {
     business: BusinessModule,
-    // menuCategory: MenuCategoryModule,
+    menuCategory: MenuCategoryModule,
     menu: MenuModule,
     // demo: RequestADemoModule
 }
@@ -33,7 +33,7 @@ export default defineNuxtPlugin(nuxtApp => {
     /** an object containing all repositories we need to expose */
     const modules: IApiInstance = {
         business: new BusinessModule(apiFetcher),
-        // menuCategory: new MenuCategoryModule(apiFetcher),
+        menuCategory: new MenuCategoryModule(apiFetcher),
         menu: new MenuModule(apiFetcher),
         // demo: new RequestADemoModule(apiFetcher)
     };

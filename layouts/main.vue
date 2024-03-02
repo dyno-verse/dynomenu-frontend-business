@@ -121,7 +121,7 @@
                 class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <img src="../assets/imgs/ic_home.svg">
-              <span class="ml-3">Home</span>
+              <span class="ml-3">Dashboard</span>
             </NuxtLink>
           </li>
           <li>
@@ -130,7 +130,7 @@
                 class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <img src="../assets/imgs/ic_menu.svg">
-              <span class="ml-3">My Menu</span>
+              <span class="ml-3">Menu</span>
             </NuxtLink>
           </li>
           <li>
@@ -139,7 +139,7 @@
                 class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <img src="../assets/imgs/ic_orders.svg">
-              <span class="ml-3">All Orders</span>
+              <span class="ml-3">Business</span>
             </NuxtLink>
           </li>
           <li>
@@ -148,7 +148,7 @@
                 class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <img src="../assets/imgs/ic_payment.svg">
-              <span class="ml-3">Payments</span>
+              <span class="ml-3">Operations</span>
             </NuxtLink>
           </li>
         </ul>

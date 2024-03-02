@@ -7,24 +7,14 @@
     </div>
 
     <div class="w-full py-10">
-      <div class="flex flex-row flex-wrap space-x-4" v-if="!isPending">
+      <div class="grid grid-cols-3 gap-4 content-start" v-if="!isPending">
         <NuxtLink :to="`/dashboard/menu/${menu.id}`" v-for="menu in menus">
-          <div class="bg-white border-2 border-red-600 shadow-lg rounded-lg p-5">
+          <div class="bg-white border-2 border-red-600  rounded-lg p-5 px-10">
             <div class="flex flex-row justify-between space-x-2">
               <div>
-                <h4 class="font-bold text-2xl">{{ menu.name }}</h4>
+                <h4 class="font-bold text-3xl">{{ menu.name }}</h4>
                 <p>{{ menu.description }}</p>
               </div>
-
-              <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots"
-                      class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                      type="button">
-                <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
-                     viewBox="0 0 4 15">
-                  <path
-                      d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z"/>
-                </svg>
-              </button>
             </div>
           </div>
         </NuxtLink>
@@ -95,7 +85,7 @@
 </template>
 
 <script lang="ts" setup>
-import {initFlowbite, initModals, Modal, ModalOptions} from "flowbite";
+import {Dropdown, DropdownOptions, initDropdowns, initFlowbite, initModals, Modal, ModalOptions} from "flowbite";
 
 definePageMeta({
   layout: "main",
@@ -111,19 +101,16 @@ const {$api} = useNuxtApp();
 const newMenu = ref({} as ICreateMenu);
 const menus = ref([]);
 const modal = ref({});
+const dropdown = ref({});
 const isPending = ref(true);
 const crudModal = ref(null);
+const  dropdownMenuIconButton = ref(null);
 
 const pages = [
   {
-    name: 'Menu',
+    name: 'Menus',
     link: '/dashboard/menu/',
     isActive: true
-  } as BreadCrumbNav,
-  {
-    name: 'Id',
-    link: '',
-    isActive: false
   } as BreadCrumbNav
 ]
 
@@ -146,19 +133,20 @@ const addMenu = () => {
   const request: ICreateMenu = {
     name: newMenu.value.name,
     description: newMenu.value.description,
-    branchId: '6f8a8a7c-c45e-45a6-8a1a-ef6dd03baf28'
+    branchId: '340328b2-cec0-4c5c-ba57-37a0f33dcf66'
   }
   //
   $api.menu.create(request).then(data => {
     console.log(data);
-    getBusinessBySlug("silmo-restaurant")
+    getBusinessBySlug("dyno-pub")
   }).catch(error => {
     console.log(error.data);
   })
 }
 
 onMounted(() => {
-  // initModals();
+
+  initDropdowns();
 
   const options: ModalOptions = {
     placement: 'center',
@@ -168,11 +156,31 @@ onMounted(() => {
 
   // if (crudModal.value !== null) {
   modal.value = new Modal(crudModal.value, options);
-  // }
-  // modal.value.show();
 
 
-  getBusinessBySlug("silmo-restaurant")
+  const dOptions: DropdownOptions = {
+    placement: 'right',
+    triggerType: 'click',
+    offsetSkidding: 0,
+    offsetDistance: 10,
+    delay: 100,
+    onHide: () => {
+      // console.log('dropdown has been hidden');
+    },
+    onShow: () => {
+      // console.log('dropdown has been shown');
+    },
+    onToggle: () => {
+      // console.log('dropdown has been toggled');
+    }
+  };
+
+
+
+  getBusinessBySlug("dyno-pub")
+
+
+
 })
 
 
