@@ -2,7 +2,7 @@ import HttpFactory from "~/repository/factory";
 import {IBusinessInfo, IMenu} from "~/repository/models/ApiResponse";
 import {IMenuDetail} from "~/repository/models/ApiResponse";
 import {IApiResponse} from "~/repository/models/appData";
-import {ICreateMenu} from "#build/repository/models/inputModels";
+import {ICreateMenu} from "~/repository/models/inputModels";
 
 class MenuModule extends HttpFactory {
     private RESOURCE = '/menu';

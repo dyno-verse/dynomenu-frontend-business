@@ -56,6 +56,7 @@ export interface IMenuDetail {
     items: Item[];
     categories: Category[];
 }
+
 interface Category {
     id: string;
     name: string;
@@ -66,26 +67,40 @@ interface Category {
     items: Item2[];
     children: any[];
 }
+
 interface Item2 {
     id: string;
     name: string;
     description: string;
-    price: Price;
+    price: number;
     ingredients: string[];
     createdAt: string;
     updatedAt: string;
 }
+
 interface Item {
     id: string;
     name: string;
     description: string;
-    price: Price;
+    price: number;
     ingredients: string[];
     createdAt: string;
     updatedAt: string;
 }
-interface Price {
-    s: number;
-    e: number;
-    d: number[];
+
+
+export interface ICategoryItems {
+    id: string;
+    name: string;
+    description: string;
+    items: Item[];
+    children: any[];
+}
+
+interface Item {
+    id: string;
+    name: string;
+    description: string;
+    price: number;
+    ingredients: string[];
 }
