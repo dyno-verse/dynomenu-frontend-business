@@ -14,3 +14,10 @@ export interface ICreateMenu{
     description: string
     branchId: string
 }
+
+
+export interface ICreateCategory{
+    name: string
+    description: string
+    branchId: string
+}

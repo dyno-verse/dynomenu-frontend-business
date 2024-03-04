@@ -12,6 +12,7 @@ class MenuCategoryModule extends HttpFactory {
     }
 
     async getItemsUnderCategories(categoryId: string): Promise<IApiResponse<ICategoryItems>> {
+        // @ts-ignore
         return await this.call<ICategoryItems>('GET', `${this.RESOURCE}/${categoryId}/detailed`)
     }
 }
