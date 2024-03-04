@@ -23,7 +23,7 @@
 
     <!------>
     <!-- Main modal -->
-    <div id="crudModal" ref="crudModal" tabindex="-1" aria-hidden="true"
+    <div ref="crudModal" tabindex="-1" aria-hidden="true"
          class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
       <div class="relative p-4 w-full max-w-md max-h-full">
         <!-- Modal content -->
@@ -146,7 +146,8 @@ const addMenu = () => {
 
 onMounted(() => {
 
-  initDropdowns();
+  console.log(crudModal.value)
+
 
   const options: ModalOptions = {
     placement: 'center',
@@ -154,33 +155,9 @@ onMounted(() => {
     closable: true
   };
 
-  // if (crudModal.value !== null) {
   modal.value = new Modal(crudModal.value, options);
-
-
-  const dOptions: DropdownOptions = {
-    placement: 'right',
-    triggerType: 'click',
-    offsetSkidding: 0,
-    offsetDistance: 10,
-    delay: 100,
-    onHide: () => {
-      // console.log('dropdown has been hidden');
-    },
-    onShow: () => {
-      // console.log('dropdown has been shown');
-    },
-    onToggle: () => {
-      // console.log('dropdown has been toggled');
-    }
-  };
-
-
-
+  console.log(modal.value)
   getBusinessBySlug("dyno-pub")
-
-
-
 })
 
 
