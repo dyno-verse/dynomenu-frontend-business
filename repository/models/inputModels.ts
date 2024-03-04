@@ -9,15 +9,23 @@ export interface ICreateRequestDemo {
 
 }
 
-export interface ICreateMenu{
+export interface ICreateMenu {
     name: string
     description: string
     branchId: string
 }
 
 
-export interface ICreateCategory{
+export interface ICreateCategory {
     name: string
     description: string
     branchId: string
+}
+
+export interface ICreateCategoryItem {
+    name: string;
+    description: string;
+    price: number;
+    ingredients: string[];
+    branchId: string;
 }
