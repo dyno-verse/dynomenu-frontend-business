@@ -7,7 +7,14 @@
         <Button :type="ButtonTypes.Primary" :label="'Add Category'" data-modal-target="categoryModal"
                 data-modal-toggle="categoryModal" @click="modal.show()"/>
       </div>
-      <h1 class="font-bold text-4xl my-5">{{ menusDetails.name }}</h1>
+      <div class="flex flex-row justify-start space-x-2 items-center">
+        <h1 class="font-bold text-4xl my-5">{{ menusDetails.name }}</h1>
+        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+             fill="none" viewBox="0 0 24 24">
+          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="m10.8 17.8-6.4 2.1 2.1-6.4m4.3 4.3L19 9a3 3 0 0 0-4-4l-8.4 8.6m4.3 4.3-4.3-4.3m2.1 2.1L15 9.1m-2.1-2 4.2 4.2"/>
+        </svg>
+      </div>
 
       <div>
         <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
@@ -46,8 +53,8 @@
                       data-modal-toggle="categoryModal" @click="itemModal.show()"/>
             </div>
 
-            <div class="flex flex-row space-x-2">
-              <div class="bg-gray-100 p-6 rounded-lg w-1/5 flex flex-col items-center "
+            <div class="flex flex-wrap w-full">
+              <div class="bg-gray-100 p-6 rounded-lg w-1/4 flex flex-col items-center mx-1 my-1"
                    v-for="item in categoryItems.items">
 
                 <div
@@ -153,7 +160,7 @@
             </button>
           </div>
           <!-- Modal body -->
-          <form class="p-4 md:p-5">
+          <div class="p-4 md:p-5">
             <div class="grid gap-4 mb-4 grid-cols-2">
               <div class="col-span-2">
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
@@ -178,8 +185,9 @@
                           placeholder="Write product description here"></textarea>
               </div>
             </div>
-            <button type="submit"
-                    class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+            <button
+                @click="createCategoryItem()"
+                class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
               <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
                    xmlns="http://www.w3.org/2000/svg">
                 <path fill-rule="evenodd"
@@ -188,7 +196,7 @@
               </svg>
               Add new product
             </button>
-          </form>
+          </div>
         </div>
       </div>
     </div>
@@ -213,7 +221,10 @@ const {$api} = useNuxtApp();
 const modal = ref({});
 const itemModal = ref({});
 
+const brandId = '340328b2-cec0-4c5c-ba57-37a0f33dcf66'
+
 const menuId = ref("");
+const selectedCategoryId = ref("");
 const addCategoryData = ref({} as ICreateCategory)
 const addItem = ref({} as ICreateCategoryItem)
 const isPending = ref(true);
@@ -242,20 +253,19 @@ onMounted(() => {
 
   modal.value = new Modal(categoryModal.value, options);
   itemModal.value = new Modal(addItemModal.value, options)
-  getDetailedMenu(menuId.value);
+
+  // if (menusDetails.value.categories.length !== 0) {
+  //   selectedCategoryId.value = menusDetails.value.categories[0].id
+    getDetailedMenu(menuId.value, selectedCategoryId.value);
+  // }
 })
 
-const getDetailedMenu = (menuId: string) => {
+const getDetailedMenu = (menuId: string, categoryId: string) => {
   $api.menu.getMenusDetailsById(menuId).then(data => {
     menusDetails.value = data.data;
     isPending.value = false;
 
-    if (menusDetails.value.categories.length !== 0) {
-      let categoryId = menusDetails.value.categories[0].id
-      getItemsByCategory(categoryId)
-    }
-
-
+    getItemsByCategory(categoryId)
     pages.push(
         {
           name: menusDetails.value.name,
@@ -279,17 +289,35 @@ const createCategory = () => {
   const request: ICreateCategory = {
     name: addCategoryData.value.name,
     description: addCategoryData.value.description,
-    branchId: '340328b2-cec0-4c5c-ba57-37a0f33dcf66'
+    branchId: brandId
   }
   $api.menu.createCategoryUnderMenu(request, menuId.value).then(data => {
-    getDetailedMenu(menuId.value);
+    getDetailedMenu(menuId.value, selectedCategoryId.value);
   }).catch(error => {
     console.log(error.data)
   })
 }
 
+const createCategoryItem = () => {
+  itemModal.value.hide()
+  const request: ICreateCategoryItem = {
+    name: addItem.value.name,
+    description: addItem.value.description,
+    price: addItem.value.price,
+    ingredients: [],
+    branchId: brandId
+  }
+  $api.menuCategory.addItem(selectedCategoryId.value, request).then(data => {
+    console.log(data)
+    getDetailedMenu(menuId.value, selectedCategoryId.value);
+  }).catch(error => {
+
+  })
+}
+
 const getItemsByCategory = (categoryId: string) => {
-  $api.menuCategory.getItemsUnderCategories(categoryId).then(data => {
+  selectedCategoryId.value = categoryId
+  $api.menuCategory.getItemsUnderCategories(selectedCategoryId.value).then(data => {
     categoryItems.value = data.data;
     iscCategoryItemsLoading.value = false;
   }).catch(error => {
