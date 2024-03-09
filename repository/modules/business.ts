@@ -1,11 +1,16 @@
 import HttpFactory from "~/repository/factory";
 import {IBusinessInfo} from "~/repository/models/ApiResponse";
+import {IApiResponse} from "~/repository/models/appData";
 
 class BusinessModule extends HttpFactory {
     private RESOURCE = 'business';
 
-    async getBusinessInfoById(slug: string): Promise<IBusinessInfo> {
+    async getBusinessInfoBySlug(slug: string): Promise<IBusinessInfo> {
         return await this.call<IBusinessInfo>('GET', `${this.RESOURCE}/slug/${slug}`)
+    }
+
+    async getBusinessInfoById(id: string): Promise<IApiResponse<IBusinessInfo>> {
+        return await this.call<IApiResponse<IBusinessInfo>>('GET', `${this.RESOURCE}/${id}`)
     }
 }
 
