@@ -55,7 +55,7 @@ export default {
                 500: '#0040F2'
             }
         },
-        extend:{
+        extend: {
             colors: {
                 red: {
                     50: '#FFF2F6',
@@ -104,7 +104,10 @@ export default {
         }
     },
     plugins: [
-        require('flowbite/plugin')
+        require('flowbite/plugin')({
+            charts: true,
+        }),
+        // ... other plugins
     ],
 }
 

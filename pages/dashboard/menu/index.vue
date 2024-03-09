@@ -19,6 +19,9 @@
           </div>
         </NuxtLink>
       </div>
+      <div class="w-full h-full py-48" v-else>
+        <Loader/>
+      </div>
     </div>
 
     <!------>
@@ -96,6 +99,7 @@ import Button from "../components/units/Button.vue";
 import {ButtonTypes} from "~/components/Constants";
 import {BreadCrumbNav} from "#build/components/units/Breadcrumb.vue";
 import {ICreateMenu} from "~/repository/models/inputModels";
+import Loader from "~/components/units/Loader.vue";
 
 const {$api} = useNuxtApp();
 const newMenu = ref({} as ICreateMenu);
@@ -115,14 +119,12 @@ const pages = [
 ]
 
 const getBusinessBySlug = (slug: string) => {
-  isPending.value = false;
+  isPending.value = true;
   $api.business.getBusinessInfoById(slug).then(data => {
-    console.log(data.data);
     menus.value = data.data.branches[0].menu;
     isPending.value = false;
 
   }).catch(error => {
-    console.log(error.data)
     isPending.value = false;
 
   })
@@ -145,10 +147,6 @@ const addMenu = () => {
 }
 
 onMounted(() => {
-
-  console.log(crudModal.value)
-
-
   const options: ModalOptions = {
     placement: 'center',
     backdrop: 'dynamic',
@@ -156,7 +154,6 @@ onMounted(() => {
   };
 
   modal.value = new Modal(crudModal.value, options);
-  console.log(modal.value)
   getBusinessBySlug("dyno-pub")
 })
 
