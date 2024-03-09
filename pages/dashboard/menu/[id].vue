@@ -6,7 +6,7 @@
         <Breadcrumb :pages="pages"/>
 
         <div class="flex flex-wrap justify-around space-x-2">
-          <Button :type="ButtonTypes.Primary" :label="'Add New Item'" data-modal-target="categoryModal"
+          <Button :type="ButtonTypes.Secondary" :label="'Add New Item'" data-modal-target="categoryModal"
                   data-modal-toggle="categoryModal" @click="itemModal.show()"/>
           <Button :type="ButtonTypes.Primary" :label="'Add Category'" data-modal-target="categoryModal"
                   data-modal-toggle="categoryModal" @click="modal.show()"/>
@@ -15,23 +15,33 @@
       </div>
       <div class="flex flex-row justify-start space-x-2 items-center">
         <h1 class="font-bold text-4xl my-5">{{ menusDetails.name }}</h1>
-        <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
-             fill="none" viewBox="0 0 24 24">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                d="m10.8 17.8-6.4 2.1 2.1-6.4m4.3 4.3L19 9a3 3 0 0 0-4-4l-8.4 8.6m4.3 4.3-4.3-4.3m2.1 2.1L15 9.1m-2.1-2 4.2 4.2"/>
-        </svg>
+        <button class="cursor-pointer">
+          <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+               fill="none" viewBox="0 0 24 24">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m10.8 17.8-6.4 2.1 2.1-6.4m4.3 4.3L19 9a3 3 0 0 0-4-4l-8.4 8.6m4.3 4.3-4.3-4.3m2.1 2.1L15 9.1m-2.1-2 4.2 4.2"/>
+          </svg>
+        </button>
       </div>
 
       <div>
         <div class="mb-4 border-b border-gray-200 dark:border-gray-700">
-          <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="default-tab"
+          <ul class="flex flex-wrap -mb-px text-sm font-medium text-center items-center" id="default-tab"
               data-tabs-toggle="#default-tab-content" role="tablist"
               data-tabs-active-classes="text-purple-600 hover:text-purple-600 dark:text-purple-500 dark:hover:text-purple-500 border-purple-600 dark:border-purple-500">
+            <li>
+              <button>
+                <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                     fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
+                </svg>
+              </button>
+            </li>
             <li role="presentation" v-if="menusDetails.items.length !== 0">
               <button
                   class="inline-block p-4 border-b-2 rounded-t-lg hover:text-gray-600 hover:border-gray-300 dark:hover:text-gray-300"
                   id="contacts-tab" data-tabs-target="#contacts" type="button" role="tab" aria-controls="contacts"
-                  aria-selected="false">Uncategorized
+                  aria-selected="true">Uncategorized
               </button>
             </li>
 
@@ -39,7 +49,7 @@
               <button @click="getItemsByCategory(category.id)" class="inline-block p-4 border-b-2 rounded-t-lg"
                       :id="`tab-${category.id}`"
                       :data-tabs-target="`#tab-${category.id}`"
-                      type="button" role="tab" :aria-controls="`tab-${category.id}`" aria-selected="false">
+                      type="button" role="tab" :aria-controls="`tab-${category.id}`" aria-selected="true">
                 {{ category.name }}
               </button>
             </li>
@@ -253,17 +263,30 @@
                           placeholder="Write product description here"></textarea>
               </div>
             </div>
-            <button
-                @click="createCategoryItem()"
-                class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-              <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                   xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                      d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
-                      clip-rule="evenodd"></path>
-              </svg>
-              Edit item
-            </button>
+            <div class="flex justify-between">
+              <button
+                  @click="createCategoryItem()"
+                  class="text-white inline-flex items-center bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg class="me-1 -ms-1 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                     xmlns="http://www.w3.org/2000/svg">
+                  <path fill-rule="evenodd"
+                        d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+                        clip-rule="evenodd"></path>
+                </svg>
+                Edit item
+              </button>
+
+              <button type="button"
+                      class="text-white bg-gray-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                     fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                </svg>
+                <span class="sr-only">Icon description</span>
+              </button>
+            </div>
+
           </div>
         </div>
       </div>
@@ -406,6 +429,9 @@ const createCategoryItem = () => {
 
 const getItemsByCategory = (categoryId: string) => {
   selectedCategoryId.value = categoryId
+  iscCategoryItemsLoading.value = true
+  // categoryItems.value.items = []
+
   $api.menuCategory.getItemsUnderCategories(selectedCategoryId.value).then(data => {
     categoryItems.value = data.data;
     iscCategoryItemsLoading.value = false;

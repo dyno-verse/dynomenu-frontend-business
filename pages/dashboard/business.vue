@@ -1,5 +1,5 @@
 <template>
-  <h1 class="text-4xl">Payments</h1>
+  <h1 class="text-4xl">Business</h1>
 </template>
 
 <script lang="ts" setup>
