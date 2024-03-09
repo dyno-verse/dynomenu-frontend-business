@@ -1,6 +1,9 @@
 <template>
   <div>
     <div class="">
+      <div class="flex flex-row justify-between h-14 mb-5">
+        <Breadcrumb :pages="pages"/>
+      </div>
 
       <div class="max-w-sm w-full bg-white rounded-lg shadow dark:bg-gray-800 p-4 md:p-6">
 
@@ -206,9 +209,20 @@
 </template>
 
 <script lang="ts" setup>
+import Breadcrumb from "~/components/units/Breadcrumb.vue";
+import {BreadCrumbNav} from "~/components/units/Breadcrumb.vue";
+
 definePageMeta({
   layout: "main",
 });
+
+const pages = [
+  {
+    name: 'Dashboard',
+    link: '/dashboard/',
+    isActive: true
+  } as BreadCrumbNav
+]
 </script>
 
 <style scoped>

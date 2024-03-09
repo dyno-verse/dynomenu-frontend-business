@@ -120,7 +120,7 @@ const pages = [
 
 const getBusinessBySlug = (slug: string) => {
   isPending.value = true;
-  $api.business.getBusinessInfoById(slug).then(data => {
+  $api.business.getBusinessInfoBySlug(slug).then(data => {
     menus.value = data.data.branches[0].menu;
     isPending.value = false;
 

@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="flex justify-between">
+    <div class="flex justify-between h-14">
       <Breadcrumb :pages="pages"/>
     </div>
 
