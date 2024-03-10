@@ -6,10 +6,10 @@
         <Breadcrumb :pages="pages"/>
 
         <div class="flex flex-wrap justify-around space-x-2">
-          <Button :type="ButtonTypes.Secondary" :label="'Add New Item'" data-modal-target="categoryModal"
-                  data-modal-toggle="categoryModal" @click="itemModal.show()"/>
-          <Button :type="ButtonTypes.Primary" :label="'Add Category'" data-modal-target="categoryModal"
-                  data-modal-toggle="categoryModal" @click="modal.show()"/>
+          <Button :type="ButtonTypes.Secondary" :label="'Add New Item'" data-modal-target="addCategoryItemModal"
+                  data-modal-toggle="addCategoryItemModal" @click="itemModal.show()"/>
+          <Button :type="ButtonTypes.Primary" :label="'Add Category'" data-modal-target="addCategoryItemModal"
+                  data-modal-toggle="addCategoryItemModal" @click="modal.show()"/>
         </div>
 
       </div>
@@ -30,7 +30,7 @@
               data-tabs-toggle="#default-tab-content" role="tablist"
               data-tabs-active-classes="text-purple-600 hover:text-purple-600 dark:text-purple-500 dark:hover:text-purple-500 border-purple-600 dark:border-purple-500">
             <li>
-              <button>
+              <button @click="openCategoriesModal()">
                 <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                      fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" stroke-linecap="round" stroke-width="2" d="M5 7h14M5 12h14M5 17h10"/>
@@ -90,7 +90,7 @@
 
 
     <!-- Main modal -->
-    <div id="category" ref="categoryModal" tabindex="-1" aria-hidden="true"
+    <div id="category" ref="addCategoryItemModal" tabindex="-1" aria-hidden="true"
          class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
       <div class="relative p-4 w-full max-w-md max-h-full">
         <!-- Modal content -->
@@ -103,7 +103,7 @@
             <button type="button"
                     @click="modal.hide()"
                     class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                    data-modal-toggle="categoryModal">
+                    data-modal-toggle="addCategoryItemModal">
               <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
                    viewBox="0 0 14 14">
                 <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -357,6 +357,54 @@
       </div>
     </div>
 
+    <!-- Category modal -->
+    <div ref="categoryItemModal" tabindex="-1" aria-hidden="true"
+         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div class="relative p-4 w-full max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <!-- Modal header -->
+          <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+              Categories
+            </h3>
+            <button type="button"
+                    @click="categoriesModal.hide()"
+                    class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm h-8 w-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-toggle="select-modal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                   viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <div class="p-4 md:p-5">
+            <ul class="space-y-4 mb-4">
+              <li v-for="(category, index) in menusDetails.categories">
+                <label for="job-1"
+                       class="inline-flex items-center justify-between w-full p-2 text-gray-900 bg-white border border-gray-200 rounded-lg cursor-pointer dark:hover:text-gray-300 dark:border-gray-500 dark:peer-checked:text-blue-500 peer-checked:border-blue-600 peer-checked:text-blue-600 hover:text-gray-900 hover:bg-gray-100 dark:text-white dark:bg-gray-600 dark:hover:bg-gray-500">
+                  <div class="block">
+                    <div class="w-full text-lg font-semibold">
+                      <input type="text" v-model="category.name" class="border-gray-200 rounded">
+                    </div>
+                  </div>
+                  <svg class="w-6 h-6 text-gray-400 dark:text-white" aria-hidden="true"
+                       @click="deleteCategory(category.id,index)"
+                       xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                  </svg>
+                </label>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+
   </div>
 </template>
 
@@ -382,6 +430,7 @@ const modal = ref({});
 const itemModal = ref({});
 const itemEditModal = ref({})
 const editMenuModal = ref({})
+const categoriesModal = ref({})
 const snackbar = useSnackbar();
 
 
@@ -395,10 +444,11 @@ const editItem = ref({} as ICreateCategoryItem)
 
 const isPending = ref(true);
 const iscCategoryItemsLoading = ref(true);
-const categoryModal = ref(null);
+const addCategoryItemModal = ref(null);
 const editItemModal = ref(null);
 const addItemModal = ref(null);
-const editMenuModalId = ref(null)
+const categoryItemModal = ref(null);
+const editMenuModalId = ref(null);
 const menusDetails = ref({} as IMenuDetail);
 const categoryItems = ref({} as ICategoryItems);
 
@@ -419,7 +469,7 @@ onMounted(() => {
     closable: true
   };
 
-  modal.value = new Modal(categoryModal.value, options);
+  modal.value = new Modal(addCategoryItemModal.value, options);
   itemModal.value = new Modal(addItemModal.value, options)
   getDetailedMenu(menuId.value);
 })
@@ -433,6 +483,17 @@ const openEditModal = () => {
 
   editMenuModal.value = new Modal(editMenuModalId.value, options)
   editMenuModal.value.show()
+}
+
+const openCategoriesModal = () => {
+  const options: ModalOptions = {
+    placement: 'center',
+    backdrop: 'dynamic',
+    closable: true
+  };
+
+  categoriesModal.value = new Modal(categoryItemModal.value, options)
+  categoriesModal.value.show()
 }
 
 const getDetailedMenu = (menuId: string, categoryId?: string) => {
@@ -502,6 +563,10 @@ const createCategory = () => {
   }
   $api.menu.createCategoryUnderMenu(request, menuId.value).then(data => {
     getDetailedMenu(menuId.value, selectedCategoryId.value);
+    snackbar.add({
+      type: 'success',
+      text: 'Category added'
+    })
   }).catch(error => {
     console.log(error.data)
   })
@@ -524,6 +589,10 @@ const createCategoryItem = () => {
   }
   $api.menuCategory.addItem(selectedCategoryId.value, request).then(data => {
     getDetailedMenu(menuId.value, selectedCategoryId.value);
+    snackbar.add({
+      type: 'success',
+      text: 'Item added'
+    })
   }).catch(error => {
 
   })
@@ -565,6 +634,19 @@ const deleteItem = (itemId: string) => {
       text: 'Item deleted'
     })
     categoryItems.value.items.splice(editItem.value.position, 1)
+  }).catch(error => {
+
+  })
+}
+
+const deleteCategory = (categoryId: string, position: number) => {
+  categoriesModal.value.hide()// close dialog
+  $api.menuCategory.deleteCategory(categoryId).then(data => {
+    snackbar.add({
+      type: 'success',
+      text: 'Category deleted'
+    })
+    menusDetails.value.categories.splice(position, 1)
   }).catch(error => {
 
   })

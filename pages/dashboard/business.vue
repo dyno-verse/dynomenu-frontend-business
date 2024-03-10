@@ -8,21 +8,9 @@
     </div>
 
 
-    <!--    {-->
-    <!--    "name": "string",-->
-    <!--    "slug": "string",-->
-    <!--    "tag": "string",-->
-    <!--    "primaryColor": "string",-->
-    <!--    "phoneNumber": "string",-->
-    <!--    "address": "string",-->
-    <!--    "city": "string",-->
-    <!--    "country": "string",-->
-    <!--    "businessOwnerId": "string"-->
-    <!--    }-->
-
     <div v-if="!isPending" class=" w-full my-4">
       <h3 class="text-2xl my-4">Business Details</h3>
-      <div class="flex flex-col w-2/3 justify-start">
+      <div class="flex flex-col w-2/3 justify-start bg-white p-5 rounded-lg border-gray-400 border-2">
         <div class="mb-5">
           <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
           <input type="text" id="email"
