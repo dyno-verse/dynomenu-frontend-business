@@ -19,7 +19,8 @@ export interface ICreateMenu {
 export interface ICreateCategory {
     name: string
     description: string
-    branchId: string
+    color?: string
+    branchId?: string
 }
 
 export interface ICreateCategoryItem {
