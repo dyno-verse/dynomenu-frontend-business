@@ -9,7 +9,7 @@
     <div class="w-full py-10">
       <div class="grid grid-cols-3 gap-4 content-start" v-if="!isPending">
         <NuxtLink :to="`/dashboard/menu/${menu.id}`" v-for="menu in menus">
-          <div class="bg-white border-2 border-red-600  rounded-lg p-5 px-10">
+          <div class="bg-white border-2 border-gray-700 rounded-lg p-5 px-10">
             <div class="flex flex-row justify-between space-x-2">
               <div>
                 <h4 class="font-bold text-3xl">{{ menu.name }}</h4>

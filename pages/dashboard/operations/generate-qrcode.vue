@@ -21,10 +21,10 @@
 
       <div class="w-full">
         <div class="flex flex-wrap">
-          <div class="w-1/4 h-72 bg-gray-200 rounded-lg m-1 text-center flex flex-col items-center justify-center"
+          <div class="w-1/5  bg-white border-gray-500 border-2 rounded-lg m-1 text-center flex flex-col items-center justify-center"
                v-for="i in Number(tableNumber)">
-            <p class="text-2xl font-bold my-2">Table #{{ i }}</p>
-            <img src="../../../assets/imgs/round-table.png" class="w-44">
+            <p class="text-lg font-bold my-2">Table #{{ i }}</p>
+            <img src="../../../assets/imgs/round-table.png" class="w-20">
             <button type="button"
                     @click="showSelectedTable(i)"
                     class="px-3 py-2 my-2 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">

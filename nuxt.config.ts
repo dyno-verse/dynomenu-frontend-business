@@ -15,8 +15,14 @@ export default defineNuxtConfig({
     devtools: {enabled: true},
     modules: [
         // '@sidebase/nuxt-auth',
-        '@nuxtjs/tailwindcss'
-    ]
+        '@nuxtjs/tailwindcss',
+        'nuxt-snackbar'
+    ],
+    snackbar: {
+        bottom: true,
+        right: true,
+        duration: 5000
+    }
     // auth: {
     //     // origin: process.env.ORIGIN,
     //     isEnabled: true,
