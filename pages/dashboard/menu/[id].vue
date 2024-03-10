@@ -50,6 +50,7 @@
               <button @click="getItemsByCategory(category.id)" class="inline-block p-4 border-b-2 rounded-t-lg"
                       :id="`tab-${category.id}`"
                       :data-tabs-target="`#tab-${category.id}`"
+                      :class="[ isSelectedCategoryId(category.id) ? 'text-red-500 border-red-500' : '']"
                       type="button" role="tab" :aria-controls="`tab-${category.id}`" aria-selected="true">
                 {{ category.name }}
               </button>
@@ -182,14 +183,28 @@
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                        placeholder="Type product name" required="">
               </div>
-              <div class="col-span-2 sm:col-span-1">
-                <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
-                <input type="number" name="price" id="price"
-                       v-model="addItem.price"
-                       class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                       placeholder="$2999" required="">
+              <div class="grid grid-cols-2 col-span-6 gap-x-2">
+                <div>
+                  <label for="price" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Price</label>
+                  <input type="text" name="price" id="price"
+                         v-model="addItem.price"
+                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
+                         placeholder="GHs 2.37" required="">
+                </div>
+                <div>
+                  <label for="countries"
+                         class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Category</label>
+                  <select id="countries"
+                          v-model="selectedCategoryId"
+                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option :selected="selectedCategoryId === category.id" selected
+                            v-for="category in menusDetails.categories" :value="category.id">{{ category.name }}
+                    </option>
+                  </select>
+
+                </div>
               </div>
-              <div class="col-span-2">
+              <div class="col-span-6">
                 <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Product
                   Description</label>
                 <textarea id="description" rows="4"
@@ -207,7 +222,7 @@
                       d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
                       clip-rule="evenodd"></path>
               </svg>
-              Add new product
+              Add new item
             </button>
           </div>
         </div>
@@ -278,6 +293,7 @@
               </button>
 
               <button type="button"
+                      @click="deleteItem(editItem.id)"
                       class="text-white bg-gray-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                      fill="none" viewBox="0 0 24 24">
@@ -422,7 +438,6 @@ const openEditModal = () => {
 const getDetailedMenu = (menuId: string, categoryId?: string) => {
   $api.menu.getMenusDetailsById(menuId).then(data => {
     menusDetails.value = data.data;
-    console.log(menusDetails.value)
     isPending.value = false;
 
     if (categoryId) {
@@ -492,6 +507,10 @@ const createCategory = () => {
   })
 }
 
+const isSelectedCategoryId = (cat: string) => {
+  return cat === selectedCategoryId.value
+}
+
 const createCategoryItem = () => {
   itemModal.value.hide()
   const request: ICreateCategoryItem = {
@@ -504,7 +523,6 @@ const createCategoryItem = () => {
     branchId: brandId
   }
   $api.menuCategory.addItem(selectedCategoryId.value, request).then(data => {
-    console.log(data)
     getDetailedMenu(menuId.value, selectedCategoryId.value);
   }).catch(error => {
 
@@ -537,8 +555,21 @@ const updateItem = (itemId: string) => {
   }).catch(error => {
   })
 
-  console.log(request)
 }
+
+const deleteItem = (itemId: string) => {
+  itemEditModal.value.hide()// close dialog
+  $api.item.deleteItem(itemId).then(data => {
+    snackbar.add({
+      type: 'success',
+      text: 'Item deleted'
+    })
+    categoryItems.value.items.splice(editItem.value.position, 1)
+  }).catch(error => {
+
+  })
+}
+
 
 const updateMenu = () => {
   const request: ICreateMenu = {
@@ -549,7 +580,6 @@ const updateMenu = () => {
 
   $api.menu.updateMenu(menuId.value, request).then(data => {
     editMenuModal.value.hide()
-    console.log(data)
     snackbar.add({
       type: 'success',
       text: 'Menu updated'
