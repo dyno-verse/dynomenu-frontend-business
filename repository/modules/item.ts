@@ -15,7 +15,9 @@ class ItemModule extends HttpFactory {
         return await this.call<IApiResponse<Iitem>>('PUT', `${this.RESOURCE}/${itemId}`, request);
     }
 
-
+    async deleteItem(itemId: string) {
+        return await this.call<IApiResponse<Iitem>>('DELETE', `${this.RESOURCE}/${itemId}`);
+    }
 
 
     async create(request: ICreateMenu) {

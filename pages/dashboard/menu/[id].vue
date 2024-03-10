@@ -278,6 +278,7 @@
               </button>
 
               <button type="button"
+                      @click="deleteItem(editItem.id)"
                       class="text-white bg-gray-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                      fill="none" viewBox="0 0 24 24">
@@ -422,7 +423,6 @@ const openEditModal = () => {
 const getDetailedMenu = (menuId: string, categoryId?: string) => {
   $api.menu.getMenusDetailsById(menuId).then(data => {
     menusDetails.value = data.data;
-    console.log(menusDetails.value)
     isPending.value = false;
 
     if (categoryId) {
@@ -504,7 +504,6 @@ const createCategoryItem = () => {
     branchId: brandId
   }
   $api.menuCategory.addItem(selectedCategoryId.value, request).then(data => {
-    console.log(data)
     getDetailedMenu(menuId.value, selectedCategoryId.value);
   }).catch(error => {
 
@@ -537,8 +536,21 @@ const updateItem = (itemId: string) => {
   }).catch(error => {
   })
 
-  console.log(request)
 }
+
+const deleteItem = (itemId: string) => {
+  itemEditModal.value.hide()// close dialog
+  $api.item.deleteItem(itemId).then(data => {
+    snackbar.add({
+      type: 'success',
+      text: 'Item deleted'
+    })
+    categoryItems.value.items.splice(editItem.value.position, 1)
+  }).catch(error => {
+
+  })
+}
+
 
 const updateMenu = () => {
   const request: ICreateMenu = {
@@ -549,7 +561,6 @@ const updateMenu = () => {
 
   $api.menu.updateMenu(menuId.value, request).then(data => {
     editMenuModal.value.hide()
-    console.log(data)
     snackbar.add({
       type: 'success',
       text: 'Menu updated'
