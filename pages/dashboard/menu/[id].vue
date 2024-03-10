@@ -70,7 +70,7 @@
                 <img v-if="item.imageUrl !== null" :src="item.imageUrl" class="w-24 h-24"/>
                 <div v-else
                      class="relative  inline-flex items-center justify-center w-24 h-24 overflow-hidden bg-gray-900 rounded-full dark:bg-gray-600">
-                  <span class="font-medium text-gray-100 text-3xl dark:text-gray-300">JL</span>
+                  <span class="font-medium text-gray-100 text-3xl dark:text-gray-300">{{ getFirstTwoCharacters(item.name)}}</span>
                 </div>
 
                 <p class="text-center text-black text-lg">{{ item.name }}</p>
@@ -258,8 +258,18 @@
           <!-- Modal body -->
           <div class="p-4 md:p-5">
             <div class="w-full flex flex-col flex-row space-x-2 border-gray-200 text-center items-center self-center">
-              <img :src="editItem.imageUrl" class="h-48 w-48"/>
-              <button class="bg-red-600 text-white p-2 rounded-lg my-2 text-sm">Upload image</button>
+              <input type="file" ref="fileInput" class="hidden">
+              <img v-if="editItem.imageUrl !== null" :src="editItem.imageUrl" class="h-48 w-48"/>
+              <div v-else
+                   class="relative  inline-flex items-center justify-center w-48 h-48 overflow-hidden bg-gray-900 rounded-full dark:bg-gray-600">
+                <span
+                    class="font-medium text-gray-100 text-6xl dark:text-gray-300">{{
+                    getFirstTwoCharacters(editItem.name)
+                  }}</span>
+              </div>
+
+              <button class="bg-red-600 text-white p-2 rounded-lg my-2 text-sm" @click="openFileInput()">Upload image
+              </button>
             </div>
             <div class="grid gap-4 mb-4 grid-cols-2">
               <div class="col-span-2">
@@ -434,8 +444,7 @@ import EmptyState from "~/components/EmptyState.vue";
 import Loader from "~/components/units/Loader.vue";
 import {ICreateMenu} from "~/repository/models/inputModels";
 import {Iitem} from "~/repository/models/ApiResponse";
-import item from "~/repository/modules/item";
-import {debounce} from "perfect-debounce";
+
 
 const route = useRoute();
 const {$api} = useNuxtApp();
@@ -445,6 +454,9 @@ const itemEditModal = ref({})
 const editMenuModal = ref({})
 const categoriesModal = ref({})
 const snackbar = useSnackbar();
+
+const fileInput = ref(null);
+const selectedFile = ref(null);
 
 
 const brandId = '340328b2-cec0-4c5c-ba57-37a0f33dcf66'
@@ -487,6 +499,10 @@ onMounted(() => {
   getDetailedMenu(menuId.value);
 })
 
+const openFileInput = () => {
+  fileInput.value.click();
+};
+
 const openEditModal = () => {
   const options: ModalOptions = {
     placement: 'center',
@@ -507,6 +523,18 @@ const openCategoriesModal = () => {
 
   categoriesModal.value = new Modal(categoryItemModal.value, options)
   categoriesModal.value.show()
+}
+
+function getFirstTwoCharacters(sentence: string): string {
+  const words = sentence.split(' ');
+
+  if (words.length >= 2) {
+    const firstWord = words[0].slice(0, 1);
+    const secondWord = words[1].slice(0, 1);
+    return `${firstWord}${secondWord}`.toUpperCase();
+  } else {
+    return words[0].slice(0, 2).toUpperCase();
+  }
 }
 
 const getDetailedMenu = (menuId: string, categoryId?: string) => {
