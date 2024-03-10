@@ -3,15 +3,17 @@ import {IBusinessInfo, IMenu} from "~/repository/models/ApiResponse";
 import {IMenuDetail} from "~/repository/models/ApiResponse";
 import {IApiResponse} from "~/repository/models/appData";
 import {ICreateMenu, ICreateCategory} from "~/repository/models/inputModels";
+import {ICreateCategoryItem} from "~/repository/models/inputModels";
 
 class MenuModule extends HttpFactory {
     private RESOURCE = '/menu';
 
-    // 'https://api.dynomenu.com/menu/ab7c92d5-1a13-4012-a57a-99e9cb465d83/detailed' \
-
-
     async create(request: ICreateMenu): Promise<IApiResponse<ICreateMenu>> {
         return await this.call<IApiResponse<ICreateMenu>>('POST', `${this.RESOURCE}`, request);
+    }
+
+    async addItemUnderMenu(menuId: string, request: ICreateCategoryItem): Promise<IApiResponse<ICreateCategoryItem>> {
+        return await this.call<IApiResponse<ICreateCategoryItem>>('POST', `${this.RESOURCE}/${menuId}/menu-item`, request)
     }
 
     async deleteMenu(menuId: string) {

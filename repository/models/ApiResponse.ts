@@ -8,8 +8,8 @@ export interface IBusinessInfo {
     address: string;
     city: string;
     country: string;
-    logo: string;
-    banner: string,
+    logoUrl: string;
+    bannerUrl: string,
     createdAt: string;
     updatedAt: string;
     branches: Branch[];
@@ -87,6 +87,7 @@ interface Item {
     description: string;
     price: number;
     color?: string;
+    imageUrl?: string;
     ingredients: string[];
     createdAt: string;
     updatedAt: string;

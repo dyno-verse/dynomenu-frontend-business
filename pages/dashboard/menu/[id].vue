@@ -67,10 +67,12 @@
                    class="bg-white border-gray-700 border-2  p-6 rounded-lg w-1/5 flex flex-col items-center mx-1 my-1 cursor-pointer"
                    v-for="(item,index) in categoryItems.items" @click="viewItem(item, index)">
 
-                <div
-                    class="relative  inline-flex items-center justify-center w-12 h-12 overflow-hidden bg-gray-900 rounded-full dark:bg-gray-600">
-                  <span class="font-medium text-gray-100 dark:text-gray-300">JL</span>
+                <img v-if="item.imageUrl !== null" :src="item.imageUrl" class="w-24 h-24"/>
+                <div v-else
+                     class="relative  inline-flex items-center justify-center w-24 h-24 overflow-hidden bg-gray-900 rounded-full dark:bg-gray-600">
+                  <span class="font-medium text-gray-100 text-3xl dark:text-gray-300">JL</span>
                 </div>
+
                 <p class="text-center text-black text-lg">{{ item.name }}</p>
                 <h5 class="text-center text-black text-sm  font-extrabold">GHS {{ item.price }}</h5>
               </div>
@@ -255,6 +257,10 @@
           </div>
           <!-- Modal body -->
           <div class="p-4 md:p-5">
+            <div class="w-full flex flex-col flex-row space-x-2 border-gray-200 text-center items-center self-center">
+              <img :src="editItem.imageUrl" class="h-48 w-48"/>
+              <button class="bg-red-600 text-white p-2 rounded-lg my-2 text-sm">Upload image</button>
+            </div>
             <div class="grid gap-4 mb-4 grid-cols-2">
               <div class="col-span-2">
                 <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
@@ -430,8 +436,6 @@ import {ICreateMenu} from "~/repository/models/inputModels";
 import {Iitem} from "~/repository/models/ApiResponse";
 import item from "~/repository/modules/item";
 import {debounce} from "perfect-debounce";
-// import debounce from "@popperjs/core/lib/utils/debounce";
-
 
 const route = useRoute();
 const {$api} = useNuxtApp();
@@ -548,6 +552,7 @@ const viewItem = (item: ICreateCategoryItem, position: number) => {
   editItem.value.price = item.price
   editItem.value.description = item.description
   editItem.value.position = position
+  editItem.value.imageUrl = item.imageUrl
 
   const options: ModalOptions = {
     placement: 'center',
@@ -592,19 +597,34 @@ const createCategoryItem = () => {
     name: addItem.value.name,
     description: addItem.value.description,
     position: 0,
-    price: addItem.value.price,
+    price: Number(addItem.value.price),
     ingredients: [],
     branchId: brandId
   }
-  $api.menuCategory.addItem(selectedCategoryId.value, request).then(data => {
-    getDetailedMenu(menuId.value, selectedCategoryId.value);
-    snackbar.add({
-      type: 'success',
-      text: 'Item added'
-    })
-  }).catch(error => {
 
-  })
+  if (selectedCategoryId.value.length !== 0) {
+    $api.menuCategory.addItem(selectedCategoryId.value, request).then(data => {
+      getDetailedMenu(menuId.value, selectedCategoryId.value);
+      snackbar.add({
+        type: 'success',
+        text: 'Item added'
+      })
+    }).catch(error => {
+
+    })
+  } else {
+    $api.menu.addItemUnderMenu(menuId.value, request).then(data => {
+      getDetailedMenu(menuId.value, selectedCategoryId.value);
+      snackbar.add({
+        type: 'success',
+        text: 'Item added'
+      })
+    }).catch(error => {
+
+    })
+  }
+
+
 }
 
 const updateItem = (itemId: string) => {

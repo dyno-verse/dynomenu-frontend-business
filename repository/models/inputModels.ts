@@ -29,6 +29,7 @@ export interface ICreateCategoryItem {
     description: string;
     position: number;
     price: number;
+    imageUrl?: string;
     ingredients: string[];
     branchId: string;
 }
