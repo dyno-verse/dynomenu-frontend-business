@@ -174,6 +174,8 @@ const addMenu = () => {
   })
 }
 
+
+
 const deleteMenu = (menuId: string) => {
   if (menuId) {
     let position = menus.value.indexOf(menus.value.filter(menu => menu.id === menuId)[0])

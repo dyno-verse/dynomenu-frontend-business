@@ -10,7 +10,13 @@
 
     <div v-if="!isPending" class=" w-full my-4">
       <h3 class="text-2xl my-4">Business Details</h3>
-      <div class="flex flex-col w-2/3 justify-start bg-white p-5 rounded-lg border-gray-400 border-2">
+      <div class="w-full flex flex-row justify-start mb-2 items-center text-center">
+        <div class="rounded-full bg-green-500 h-28 w-28 z-30 mb--10 p-1 w-1/3 text-center justify-center self-center mx-10">
+          <img :src="businessInfo.logoUrl" class="rounded-full">
+        </div>
+        <object :data="businessInfo.bannerUrl" class="object-cover z-10 w-2/3 text-center justify-center"></object>
+      </div>
+      <div class="flex flex-col w-3/5 justify-start bg-white p-5 rounded-lg border-gray-400 border-2">
         <div class="mb-5">
           <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
           <input type="text" id="email"

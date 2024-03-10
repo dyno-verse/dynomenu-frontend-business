@@ -17,6 +17,10 @@ class BusinessModule extends HttpFactory {
     async updateBusinessInfoById(id: string, data: IUpdateBusiness): Promise<IApiResponse<IBusinessInfo>> {
         return await this.call<IApiResponse<IBusinessInfo>>('PUT', `${this.RESOURCE}/${id}`, data)
     }
+
+    async updateBusinessInfoWithMedia(businessId: string, data: IUpdateBusiness): Promise<IApiResponse<IBusinessInfo>> {
+        return await this.call<IApiResponse<IBusinessInfo>>('PUT', `${this.RESOURCE}/${businessId}/photo-upload`, data)
+    }
 }
 
 export default BusinessModule;
