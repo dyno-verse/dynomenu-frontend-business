@@ -12,6 +12,15 @@ class MenuCategoryModule extends HttpFactory {
         return await this.call<IMenuCategory>('GET', `${this.RESOURCE}/${id}`)
     }
 
+    async updateCategory(categoryId: string, request: ICreateCategoryItem): Promise<IApiResponse<ICreateCategoryItem>> {
+        return await this.call<IApiResponse<ICreateCategoryItem>>('PUT', `${this.RESOURCE}/${categoryId}`, request);
+    }
+
+    async deleteCategory(categoryId: string) {
+        return await this.call<IApiResponse<IMenuCategory>>('DELETE', `${this.RESOURCE}/${categoryId}`);
+    }
+
+
     async getItemsUnderCategories(categoryId: string): Promise<IApiResponse<ICategoryItems>> {
         // @ts-ignore
         return await this.call<ICategoryItems>('GET', `${this.RESOURCE}/${categoryId}/detailed`)
