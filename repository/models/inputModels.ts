@@ -23,9 +23,18 @@ export interface ICreateCategory {
 }
 
 export interface ICreateCategoryItem {
+    id: string,
     name: string;
     description: string;
+    position: number;
     price: number;
     ingredients: string[];
     branchId: string;
+}
+
+export interface IUpdateBusiness {
+    name: string;
+    slug: string;
+    tag: string;
+    primaryColor: string;
 }

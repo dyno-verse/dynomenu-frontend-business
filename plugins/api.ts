@@ -2,10 +2,9 @@ import {defineNuxtPlugin} from '#app';
 import {$fetch, FetchOptions} from "ofetch";
 import BusinessModule from "../repository/modules/business";
 import MenuModule from "~/repository/modules/menu";
-// import BusinessModule from "~/repository/modules/business";
 import MenuCategoryModule from "~/repository/modules/category";
-// import MenuModule from "~/repository/modules/menu";
-// import RequestADemoModule from "~/repository/modules/demo";
+import ItemModule from "~/repository/modules/item";
+
 
 
 /** ApiInstance interface provides us with good typing */
@@ -13,7 +12,7 @@ interface IApiInstance {
     business: BusinessModule,
     menuCategory: MenuCategoryModule,
     menu: MenuModule,
-    // demo: RequestADemoModule
+    item: ItemModule
 }
 
 export default defineNuxtPlugin(nuxtApp => {
@@ -35,7 +34,7 @@ export default defineNuxtPlugin(nuxtApp => {
         business: new BusinessModule(apiFetcher),
         menuCategory: new MenuCategoryModule(apiFetcher),
         menu: new MenuModule(apiFetcher),
-        // demo: new RequestADemoModule(apiFetcher)
+        item: new ItemModule(apiFetcher)
     };
 
     return {

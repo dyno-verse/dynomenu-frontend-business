@@ -36,11 +36,14 @@ export interface IMenuCategory {
     id: string
     name: string
     description: string
+    color?: string
 }
 
 export interface IMenu {
+    id: string
     name: string
     description: string
+    color?: string
     price: number
     ingredients: string[]
     imageUrl: string
@@ -83,6 +86,7 @@ interface Item {
     name: string;
     description: string;
     price: number;
+    color?: string;
     ingredients: string[];
     createdAt: string;
     updatedAt: string;
@@ -97,10 +101,11 @@ export interface ICategoryItems {
     children: any[];
 }
 
-interface Item {
+export interface Iitem {
     id: string;
     name: string;
     description: string;
+    color?: string;
     price: number;
     ingredients: string[];
 }

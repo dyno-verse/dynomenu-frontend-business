@@ -3,7 +3,7 @@
     <NuxtLayout>
       <NuxtPage/>
     </NuxtLayout>
-    <!--    <NuxtSnackbar/>-->
+    <NuxtSnackbar/>
   </div>
 </template>
 

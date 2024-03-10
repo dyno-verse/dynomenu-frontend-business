@@ -4,9 +4,9 @@
       <Breadcrumb :pages="pages"/>
     </div>
 
-    <div class="flex flex-wrap p-8">
+    <div class="flex flex-wrap py-8">
       <NuxtLink :to="option.url" v-for="option in options" class="space-x-2 flex m-2.5">
-        <div class="p-8 bg-gray-100 border-2 border-gray-500 rounded flex flex-col text-center items-center">
+        <div class="p-8 bg-white border-2 border-gray-500 rounded-lg flex flex-col text-center items-center">
           <img :src="option.image" class="w-14">
           <h1 class="font-bold text-lg">{{ option.name }}</h1>
         </div>
