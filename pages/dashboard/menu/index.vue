@@ -7,17 +7,40 @@
     </div>
 
     <div class="w-full py-10">
-      <div class="grid grid-cols-3 gap-4 content-start" v-if="!isPending">
-        <NuxtLink :to="`/dashboard/menu/${menu.id}`" v-for="menu in menus">
-          <div class="bg-white border-2 border-gray-400 rounded-lg p-5 px-10">
-            <div class="flex flex-row justify-between space-x-2">
-              <div>
-                <h4 class="font-bold text-3xl">{{ menu.name }}</h4>
-                <p>{{ menu.description }}</p>
+      <div v-if="!isPending">
+        <div class="grid grid-cols-3 gap-4 content-start">
+          <NuxtLink :to="`/dashboard/menu/${menu.id}`" v-for="menu in menus">
+            <div class="bg-white border-2 border-gray-400 rounded-lg p-5 px-10">
+              <div class="flex flex-row justify-between space-x-2">
+                <div>
+                  <h4 class="font-bold text-3xl">{{ menu.name }}</h4>
+                  <p>{{ menu.description }}</p>
+                </div>
               </div>
             </div>
+          </NuxtLink>
+
+
+        </div>
+        <div class="mt-14 w-1/3">
+          <p class="text-gray-400 my-2 text-sm">This activity is very destructive</p>
+          <div class="grid grid-cols-2 items-center gap-x-2">
+            <select id="countries"
+                    v-model="selectedMenu"
+                    class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+              <option selected value="">Select menu</option>
+              <option v-for="menu in menus" :value="menu.id">{{ menu.name }}</option>
+            </select>
+
+            <button @click="deleteMenu(selectedMenu)">
+              <svg class="w-8 h-8 text-gray-300 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                   fill="none" viewBox="0 0 24 24">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+              </svg>
+            </button>
           </div>
-        </NuxtLink>
+        </div>
       </div>
       <div class="w-full h-full py-48" v-else>
         <Loader/>
@@ -100,15 +123,17 @@ import {ButtonTypes} from "~/components/Constants";
 import {BreadCrumbNav} from "#build/components/units/Breadcrumb.vue";
 import {ICreateMenu} from "~/repository/models/inputModels";
 import Loader from "~/components/units/Loader.vue";
+import category from "#build/repository/modules/category";
 
 const {$api} = useNuxtApp();
+const snackbar = useSnackbar();
+
 const newMenu = ref({} as ICreateMenu);
+const selectedMenu = ref('');
 const menus = ref([]);
 const modal = ref({});
-const dropdown = ref({});
 const isPending = ref(true);
 const crudModal = ref(null);
-const  dropdownMenuIconButton = ref(null);
 
 const pages = [
   {
@@ -139,11 +164,29 @@ const addMenu = () => {
   }
   //
   $api.menu.create(request).then(data => {
-    console.log(data);
-    getBusinessBySlug("dyno-pub")
+    menus.value.push(data.data)
+    snackbar.add({
+      type: 'success',
+      text: 'Menu added'
+    })
   }).catch(error => {
     console.log(error.data);
   })
+}
+
+const deleteMenu = (menuId: string) => {
+  if (menuId) {
+    let position = menus.value.indexOf(menus.value.filter(menu => menu.id === menuId)[0])
+    $api.menu.deleteMenu(menuId).then(data => {
+      menus.value.splice(position, 1)
+      snackbar.add({
+        type: 'success',
+        text: 'Menu deleted'
+      })
+    }).catch(error => {
+    })
+  }
+
 }
 
 onMounted(() => {

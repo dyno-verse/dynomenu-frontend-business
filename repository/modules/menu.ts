@@ -10,9 +10,14 @@ class MenuModule extends HttpFactory {
     // 'https://api.dynomenu.com/menu/ab7c92d5-1a13-4012-a57a-99e9cb465d83/detailed' \
 
 
-    async create(request: ICreateMenu) {
-        return await this.call<ICreateMenu>('POST', `${this.RESOURCE}`, request);
+    async create(request: ICreateMenu): Promise<IApiResponse<ICreateMenu>> {
+        return await this.call<IApiResponse<ICreateMenu>>('POST', `${this.RESOURCE}`, request);
     }
+
+    async deleteMenu(menuId: string) {
+        return await this.call<IApiResponse<ICreateMenu>>('DELETE', `${this.RESOURCE}/${menuId}`);
+    }
+
 
     async getMenusByBusinessId(id: string) {
         return await this.call<IMenu>('GET', `${this.RESOURCE}/${id}`)

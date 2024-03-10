@@ -392,6 +392,12 @@
                     </div>
                   </div>
                   <svg class="w-6 h-6 text-gray-400 dark:text-white" aria-hidden="true"
+                       @click="updateCategory(category.id,index)"
+                       xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="m14.3 4.8 2.9 2.9M7 7H4a1 1 0 0 0-1 1v10c0 .6.4 1 1 1h11c.6 0 1-.4 1-1v-4.5m2.4-10a2 2 0 0 1 0 3l-6.8 6.8L8 14l.7-3.6 6.9-6.8a2 2 0 0 1 2.8 0Z"/>
+                  </svg>
+                  <svg class="w-6 h-6 text-gray-400 dark:text-white" aria-hidden="true"
                        @click="deleteCategory(category.id,index)"
                        xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                     <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -423,6 +429,9 @@ import Loader from "~/components/units/Loader.vue";
 import {ICreateMenu} from "~/repository/models/inputModels";
 import {Iitem} from "~/repository/models/ApiResponse";
 import item from "~/repository/modules/item";
+import {debounce} from "perfect-debounce";
+// import debounce from "@popperjs/core/lib/utils/debounce";
+
 
 const route = useRoute();
 const {$api} = useNuxtApp();
@@ -647,6 +656,23 @@ const deleteCategory = (categoryId: string, position: number) => {
       text: 'Category deleted'
     })
     menusDetails.value.categories.splice(position, 1)
+  }).catch(error => {
+
+  })
+}
+
+const updateCategory = (categoryId: string, position: number) => {
+  const request: ICreateCategory = {
+    name: menusDetails.value.categories[position].name,
+    description: menusDetails.value.categories[position].description
+  }
+
+  $api.menuCategory.updateCategory(categoryId, request).then(data => {
+    // categoriesModal.value.hide()
+    snackbar.add({
+      type: 'success',
+      text: 'Category updated'
+    })
   }).catch(error => {
 
   })

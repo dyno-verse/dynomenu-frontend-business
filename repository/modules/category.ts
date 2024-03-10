@@ -2,6 +2,7 @@ import HttpFactory from "~/repository/factory";
 import {IBusinessInfo, IMenu, IMenuCategory, ICategoryItems} from "~/repository/models/ApiResponse";
 import {IApiResponse} from "~/repository/models/appData";
 import {ICreateCategoryItem} from "~/repository/models/inputModels";
+import {ICreateCategory} from "~/repository/models/inputModels";
 
 class MenuCategoryModule extends HttpFactory {
     private RESOURCE = '/category';
@@ -12,8 +13,8 @@ class MenuCategoryModule extends HttpFactory {
         return await this.call<IMenuCategory>('GET', `${this.RESOURCE}/${id}`)
     }
 
-    async updateCategory(categoryId: string, request: ICreateCategoryItem): Promise<IApiResponse<ICreateCategoryItem>> {
-        return await this.call<IApiResponse<ICreateCategoryItem>>('PUT', `${this.RESOURCE}/${categoryId}`, request);
+    async updateCategory(categoryId: string, request: ICreateCategory): Promise<IApiResponse<ICreateCategory>> {
+        return await this.call<IApiResponse<ICreateCategory>>('PUT', `${this.RESOURCE}/${categoryId}`, request);
     }
 
     async deleteCategory(categoryId: string) {

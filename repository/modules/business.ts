@@ -6,8 +6,8 @@ import {IUpdateBusiness} from "~/repository/models/inputModels";
 class BusinessModule extends HttpFactory {
     private RESOURCE = 'business';
 
-    async getBusinessInfoBySlug(slug: string): Promise<IBusinessInfo> {
-        return await this.call<IBusinessInfo>('GET', `${this.RESOURCE}/slug/${slug}`)
+    async getBusinessInfoBySlug(slug: string): Promise<IApiResponse<IBusinessInfo>> {
+        return await this.call<IApiResponse<IBusinessInfo>>('GET', `${this.RESOURCE}/slug/${slug}`)
     }
 
     async getBusinessInfoById(id: string): Promise<IApiResponse<IBusinessInfo>> {
