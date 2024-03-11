@@ -15,6 +15,11 @@ class ItemModule extends HttpFactory {
         return await this.call<IApiResponse<Iitem>>('PUT', `${this.RESOURCE}/${itemId}`, request);
     }
 
+
+    async uploadItemImage(itemId: string, data: FormData): Promise<IApiResponse<Iitem>> {
+        return await this.call<IApiResponse<Iitem>>('PUT', `${this.RESOURCE}/${itemId}/photo-upload`, data);
+    }
+
     async deleteItem(itemId: string) {
         return await this.call<IApiResponse<Iitem>>('DELETE', `${this.RESOURCE}/${itemId}`);
     }
