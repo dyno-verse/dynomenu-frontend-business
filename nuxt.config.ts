@@ -30,7 +30,7 @@ export default defineNuxtConfig({
     //     origin: 'https://business.dynomenu.com',
     // }
     ,
-    // css: ['~/assets/css/main.css'],
+    css: ['~/assets/css/main.css'],
     postcss: {
         plugins: {
             tailwindcss: {},
