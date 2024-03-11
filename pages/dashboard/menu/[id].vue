@@ -70,7 +70,10 @@
                 <img v-if="item.imageUrl !== null" :src="item.imageUrl" class="w-24 h-24"/>
                 <div v-else
                      class="relative  inline-flex items-center justify-center w-24 h-24 overflow-hidden bg-gray-900 rounded-full dark:bg-gray-600">
-                  <span class="font-medium text-gray-100 text-3xl dark:text-gray-300">{{ getFirstTwoCharacters(item.name)}}</span>
+                  <span
+                      class="font-medium text-gray-100 text-3xl dark:text-gray-300">{{
+                      getFirstTwoCharacters(item.name)
+                    }}</span>
                 </div>
 
                 <p class="text-center text-black text-lg">{{ item.name }}</p>
@@ -258,7 +261,7 @@
           <!-- Modal body -->
           <div class="p-4 md:p-5">
             <div class="w-full flex flex-col flex-row space-x-2 border-gray-200 text-center items-center self-center">
-              <input type="file" ref="fileInput" class="hidden">
+              <input type="file" ref="fileInput" class="hidden" @change="handleFileUpload">
               <img v-if="editItem.imageUrl !== null" :src="editItem.imageUrl" class="h-48 w-48"/>
               <div v-else
                    class="relative  inline-flex items-center justify-center w-48 h-48 overflow-hidden bg-gray-900 rounded-full dark:bg-gray-600">
@@ -268,8 +271,16 @@
                   }}</span>
               </div>
 
-              <button class="bg-red-600 text-white p-2 rounded-lg my-2 text-sm" @click="openFileInput()">Upload image
-              </button>
+              <div class="flex flex-row items-center space-x-2">
+                <button class="bg-red-600 text-white p-2 rounded-lg my-2 text-sm" @click="openFileInput()">Select image
+                </button>
+                <svg @click="uploadImage(editItem.id)" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                     xmlns="http://www.w3.org/2000/svg"
+                     fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4c0 .6.4 1 1 1h14c.6 0 1-.4 1-1v-4c0-.6-.4-1-1-1h-2M8 9l4-5 4 5m1 8h0"/>
+                </svg>
+              </div>
             </div>
             <div class="grid gap-4 mb-4 grid-cols-2">
               <div class="col-span-2">
@@ -501,6 +512,45 @@ onMounted(() => {
 
 const openFileInput = () => {
   fileInput.value.click();
+};
+
+const handleFileUpload = (event) => {
+  selectedFile.value = event.target.files[0];
+
+  //Display uploaded image
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    editItem.value.imageUrl = e.target.result;
+  };
+  reader.readAsDataURL(selectedFile.value);
+};
+
+const uploadImage = async (itemId: string) => {
+  if (!selectedFile.value) {
+    console.error('No file selected');
+    return;
+  }
+
+  const formData = new FormData();
+  formData.append('image', selectedFile.value);
+
+  $api.item.uploadItemImage(itemId, formData).then(data => {
+    editItem.value.imageUrl = data.data.imageUrl
+    getDetailedMenu(menuId.value, selectedCategoryId.value);
+
+    snackbar.add({
+      type: 'success',
+      text: 'Image uploaded'
+    })
+  }).catch(error => {
+    console.log(error.data)
+    snackbar.add({
+      type: 'error',
+      text: error.data.statusMessage
+    })
+  })
+
+  console.log('File selected:', selectedFile.value);
 };
 
 const openEditModal = () => {

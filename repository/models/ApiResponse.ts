@@ -108,5 +108,6 @@ export interface Iitem {
     description: string;
     color?: string;
     price: number;
+    imageUrl?: string;
     ingredients: string[];
 }
