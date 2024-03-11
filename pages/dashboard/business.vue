@@ -10,65 +10,73 @@
 
     <div v-if="!isPending" class=" w-full my-4">
       <h3 class="text-2xl my-4">Business Details</h3>
-      <div class="w-full flex flex-row justify-start mb-2 items-center text-center">
-        <div class="rounded-full bg-green-500 h-28 w-28 z-30 mb--10 p-1 w-1/3 text-center justify-center self-center mx-10">
-          <img :src="businessInfo.logoUrl" class="rounded-full">
+      <div class="flex-row flex space-x-4 justify-center">
+        <div class="w-1/3 justify-center text-center">
+          <div class="border-2 self-center border-gray-400 h-48 rounded-lg bg-white">
+            <div
+                class="rounded-full shadow-lg h-36 w-36 z-30 mb--10 p-1 m-5 text-center justify-center self-center mx-10">
+              <img :src="businessInfo.logoUrl" class="rounded-full">
+            </div>
+          </div>
         </div>
-        <object :data="businessInfo.bannerUrl" class="object-cover z-10 w-2/3 text-center justify-center"></object>
+        <div class="w-2/3">
+          <div class="w-full flex flex-row justify-start w-4/5 mb-2 items-center text-center">
+
+            <object :data="businessInfo.bannerUrl"
+                    class="object-cover z-10 text-center w-4/5 justify-center rounded-lg"></object>
+          </div>
+          <div class="flex flex-col w-4/5 justify-start bg-white p-5 rounded-lg border-gray-400 border-2">
+            <div class="mb-5">
+              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
+              <input type="text" id="email"
+                     v-model="businessInfo.name"
+                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                     placeholder="" required/>
+            </div>
+            <div class="flex flex-wrap space-x-2">
+              <div class="mb-5 w-1/3">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
+                <input type="text" id="email"
+                       v-model="businessInfo.city"
+                       class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                       placeholder="" required/>
+              </div>
+              <div class="mb-5 w-1/2">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact
+                  number</label>
+                <input type="text" id="email"
+                       v-model="businessInfo.phoneNumber"
+                       class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                       placeholder="" required/>
+              </div>
+            </div>
+            <div class="mb-5 w-2/3">
+              <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
+              <input type="text" id="email"
+                     v-model="businessInfo.address"
+                     class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                     placeholder="" required/>
+            </div>
+            <div class="flex flex-wrap space-x-2">
+              <div class="mb-5 w-1/3">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
+                <input type="text" id="email"
+                       v-model="businessInfo.country"
+                       class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                       placeholder="" required/>
+              </div>
+              <div class="mb-5 w-1/9">
+                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Theme
+                  Color</label>
+                <input type="color" id="email"
+                       v-model="businessInfo.primaryColor"
+                       class="shadow-sm h-11 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
+                       placeholder="" required/>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="flex flex-col w-3/5 justify-start bg-white p-5 rounded-lg border-gray-400 border-2">
-        <div class="mb-5">
-          <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
-          <input type="text" id="email"
-                 v-model="businessInfo.name"
-                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                 placeholder="" required/>
-        </div>
-        <div class="flex flex-wrap space-x-2">
-          <div class="mb-5 w-1/3">
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">City</label>
-            <input type="text" id="email"
-                   v-model="businessInfo.city"
-                   class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                   placeholder="" required/>
-          </div>
-          <div class="mb-5 w-1/2">
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Contact
-              number</label>
-            <input type="text" id="email"
-                   v-model="businessInfo.phoneNumber"
-                   class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                   placeholder="" required/>
-          </div>
-        </div>
-        <div class="mb-5 w-2/3">
-          <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Address</label>
-          <input type="text" id="email"
-                 v-model="businessInfo.address"
-                 class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                 placeholder="" required/>
-        </div>
-        <div class="flex flex-wrap space-x-2">
-          <div class="mb-5 w-1/3">
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Country</label>
-            <input type="text" id="email"
-                   v-model="businessInfo.country"
-                   class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                   placeholder="" required/>
-          </div>
-          <div class="mb-5 w-1/9">
-            <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Theme Color</label>
-            <input type="color" id="email"
-                   v-model="businessInfo.primaryColor"
-                   class="shadow-sm h-11 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                   placeholder="" required/>
-          </div>
-        </div>
-      </div>
-      <h3 class="hidden">Branches</h3>
-      <!--      <div v-for="business in businessInfo.branches" class="p-5 border-gray-700 flex flex-wrap  border-2">-->
-      <!--        <p>{{ business.name }}</p>-->
-      <!--      </div>-->
     </div>
     <div v-else>
       <Loader class="w-full h-full py-48"/>
