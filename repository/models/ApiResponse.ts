@@ -56,6 +56,7 @@ export interface IMenuDetail {
     branchId: string;
     createdAt: string;
     updatedAt: string;
+    color?: string
     items: Item[];
     categories: Category[];
 }

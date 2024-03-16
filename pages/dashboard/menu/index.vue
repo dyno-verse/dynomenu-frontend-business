@@ -1,16 +1,16 @@
 <template>
-  <div>
+  <div class="">
     <div class="flex flex-row justify-between">
       <Breadcrumb :pages="pages"/>
       <Button :type="ButtonTypes.Primary" :label="'Add Menu'" data-modal-target="crudModal"
               data-modal-toggle="crudModal" @click="modal.show()"/>
     </div>
 
-    <div class="w-full py-10">
+    <div class="py-10">
       <div v-if="!isPending">
         <div class="grid grid-cols-3 gap-4 content-start">
           <NuxtLink :to="`/dashboard/menu/${menu.id}`" v-for="menu in menus">
-            <div class="bg-white border-2 border-gray-400 rounded-lg p-5 px-10">
+            <div class="bg-white border border-gray-300 rounded-lg p-5 px-10" :style="{'backgroundColor': menu.color}">
               <div class="flex flex-row justify-between space-x-2">
                 <div>
                   <h4 class="font-bold text-3xl">{{ menu.name }}</h4>
@@ -22,7 +22,8 @@
 
 
         </div>
-        <div class="mt-14 w-1/3">
+
+        <div class="mt-14 w-1/3 h-full flex flex-col justify-start ">
           <p class="text-gray-400 my-2 text-sm">This activity is very destructive</p>
           <div class="grid grid-cols-2 items-center gap-x-2">
             <select id="countries"
@@ -90,6 +91,18 @@
                           class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           placeholder="Write product description here"></textarea>
               </div>
+
+              <div class="mb-5 col-span-2">
+                <form class="mx-auto w-full">
+                  <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select
+                    Color</label>
+                  <select id="countries"
+                          v-model="newMenu.color"
+                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option v-for="color in PredefinedColor" :value="color.value">{{ color.name }}</option>
+                  </select>
+                </form>
+              </div>
             </div>
             <button @click="addMenu()"
                     class="text-white inline-flex items-center bg-red-600 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
@@ -123,7 +136,8 @@ import {ButtonTypes} from "~/components/Constants";
 import {BreadCrumbNav} from "#build/components/units/Breadcrumb.vue";
 import {ICreateMenu} from "~/repository/models/inputModels";
 import Loader from "~/components/units/Loader.vue";
-import category from "#build/repository/modules/category";
+import category from "~/repository/modules/category";
+import {PredefinedColor} from "~/components/Constants";
 
 const {$api} = useNuxtApp();
 const snackbar = useSnackbar();
@@ -160,7 +174,8 @@ const addMenu = () => {
   const request: ICreateMenu = {
     name: newMenu.value.name,
     description: newMenu.value.description,
-    branchId: '340328b2-cec0-4c5c-ba57-37a0f33dcf66'
+    branchId: '340328b2-cec0-4c5c-ba57-37a0f33dcf66',
+    color: newMenu.value.color
   }
   //
   $api.menu.create(request).then(data => {
@@ -173,7 +188,6 @@ const addMenu = () => {
     console.log(error.data);
   })
 }
-
 
 
 const deleteMenu = (menuId: string) => {

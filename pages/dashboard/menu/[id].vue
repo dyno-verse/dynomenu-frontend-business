@@ -64,7 +64,7 @@
 
             <div class="flex flex-wrap w-full">
               <div v-if="categoryItems.items.length !== 0"
-                   class="bg-white border-gray-700 border-2  p-6 rounded-lg w-1/5 flex flex-col items-center mx-1 my-1 cursor-pointer"
+                   class="bg-white border-gray-300 border  p-6 rounded-lg w-1/5 flex flex-col items-center mx-1 my-1 cursor-pointer"
                    v-for="(item,index) in categoryItems.items" @click="viewItem(item, index)">
 
                 <img v-if="item.imageUrl !== null" :src="item.imageUrl" class="w-24 h-24"/>
@@ -77,7 +77,7 @@
                 </div>
 
                 <p class="text-center text-black text-lg">{{ item.name }}</p>
-                <h5 class="text-center text-black text-sm  font-extrabold">GHS {{ item.price }}</h5>
+                <h5 class="text-center text-black text-sm  font-extrabold">GHS {{ format('GHC', item.price) }}</h5>
               </div>
               <EmptyState v-else/>
             </div>
@@ -135,6 +135,18 @@
                           v-model="addCategoryData.description"
                           class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           placeholder="Write product description here"></textarea>
+              </div>
+
+              <div class="mb-5 col-span-2">
+                <form class="mx-auto w-full">
+                  <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select
+                    Color</label>
+                  <select id="countries"
+                          v-model="addCategoryData.color"
+                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option v-for="color in PredefinedColor" :value="color.value">{{ color.name }}</option>
+                  </select>
+                </form>
               </div>
             </div>
             <button
@@ -194,7 +206,7 @@
                   <input type="text" name="price" id="price"
                          v-model="addItem.price"
                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
-                         placeholder="GHs 2.37" required="">
+                         placeholder="3.00" required="">
                 </div>
                 <div>
                   <label for="countries"
@@ -216,6 +228,18 @@
                           v-model="addItem.description"
                           class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           placeholder="Write product description here"></textarea>
+              </div>
+
+              <div class="mb-5 col-span-6">
+                <form class="mx-auto w-full">
+                  <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select
+                    Color</label>
+                  <select id="countries"
+                          v-model="addItem.color"
+                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option v-for="color in PredefinedColor" :value="color.value">{{ color.name }}</option>
+                  </select>
+                </form>
               </div>
             </div>
             <button
@@ -297,6 +321,17 @@
                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                        placeholder="20.00" required="">
               </div>
+              <div class="col-span-2 sm:col-span-1">
+                <form class="mx-auto w-full">
+                  <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select
+                    Color</label>
+                  <select id="countries"
+                          v-model="editItem.color"
+                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option v-for="color in PredefinedColor" :value="color.value">{{ color.name }}</option>
+                  </select>
+                </form>
+              </div>
               <div class="col-span-2">
                 <label for="description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Item
                   Description</label>
@@ -305,6 +340,7 @@
                           class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-600 dark:border-gray-500 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           placeholder="Write product description here"></textarea>
               </div>
+
             </div>
             <div class="flex justify-between">
               <button
@@ -342,7 +378,7 @@
       <div class="relative p-4 w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
           <button type="button"
-                  @click="editItemModal.hide()"
+                  @click="editMenuModal.hide()"
                   class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
                   data-modal-hide="popup-modal">
             <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
@@ -368,17 +404,41 @@
                           class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                           placeholder=""></textarea>
               </div>
+
+
+              <div class="mb-5">
+                <form class="max-w-sm mx-auto">
+                  <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Select
+                    Color</label>
+                  <select id="countries"
+                          v-model="menusDetails.color"
+                          class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                    <option v-for="color in PredefinedColor" :value="color.value">{{ color.name }}</option>
+                  </select>
+                </form>
+              </div>
             </div>
-            <button data-modal-hide="popup-modal" type="button"
-                    @click="updateMenu()"
-                    class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
-              Save
-            </button>
-            <button type="button"
-                    @click="editItemModal.hide()"
-                    class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-              Cancel
-            </button>
+            <div class="flex flex-row justify-between">
+              <button data-modal-hide="popup-modal" type="button"
+                      @click="updateMenu()"
+                      class="text-white bg-red-600 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 font-medium rounded-lg text-sm inline-flex items-center px-5 py-2.5 text-center">
+                Save
+              </button>
+              <button type="button"
+                      class="text-white bg-gray-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                     fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M5 7h14m-9 3v8m4-8v8M10 3h4a1 1 0 0 1 1 1v3H9V4a1 1 0 0 1 1-1ZM6 7h12v13a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7Z"/>
+                </svg>
+                <span class="sr-only">Icon description</span>
+              </button>
+            </div>
+            <!--            <button type="button"-->
+            <!--                    @click="editMenuModal.hide()"-->
+            <!--                    class="py-2.5 px-5 ms-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">-->
+            <!--              Cancel-->
+            <!--            </button>-->
           </div>
         </div>
       </div>
@@ -455,6 +515,8 @@ import EmptyState from "~/components/EmptyState.vue";
 import Loader from "~/components/units/Loader.vue";
 import {ICreateMenu} from "~/repository/models/inputModels";
 import {Iitem} from "~/repository/models/ApiResponse";
+import {format} from 'money-formatter';
+import {PredefinedColor} from "~/components/Constants";
 
 
 const route = useRoute();
@@ -630,6 +692,7 @@ const viewItem = (item: ICreateCategoryItem, position: number) => {
   editItem.value.price = item.price
   editItem.value.description = item.description
   editItem.value.position = position
+  editItem.value.color = item.color
   editItem.value.imageUrl = item.imageUrl
 
   const options: ModalOptions = {
@@ -651,6 +714,7 @@ const createCategory = () => {
   const request: ICreateCategory = {
     name: addCategoryData.value.name,
     description: addCategoryData.value.description,
+    color: addCategoryData.value.color,
     branchId: brandId
   }
   $api.menu.createCategoryUnderMenu(request, menuId.value).then(data => {
@@ -674,6 +738,7 @@ const createCategoryItem = () => {
     id: addItem.value.id,
     name: addItem.value.name,
     description: addItem.value.description,
+    color: addItem.value.color,
     position: 0,
     price: Number(addItem.value.price),
     ingredients: [],
@@ -710,6 +775,7 @@ const updateItem = (itemId: string) => {
     name: editItem.value.name,
     description: editItem.value.description,
     price: Number(editItem.value.price),
+    color: editItem.value.color,
     ingredients: [],
     id: itemId
   }
@@ -781,7 +847,8 @@ const updateMenu = () => {
   const request: ICreateMenu = {
     name: menusDetails.value.name,
     description: menusDetails.value.description,
-    branchId: brandId
+    branchId: brandId,
+    color: menusDetails.value.color
   }
 
   $api.menu.updateMenu(menuId.value, request).then(data => {
