@@ -13,6 +13,7 @@ export interface ICreateMenu {
     name: string
     description: string
     branchId: string
+    color?: string
 }
 
 
@@ -30,6 +31,7 @@ export interface ICreateCategoryItem {
     position: number;
     price: number;
     imageUrl?: string;
+    color?: string,
     ingredients: string[];
     branchId: string;
 }
