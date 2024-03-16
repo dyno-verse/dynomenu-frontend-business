@@ -27,12 +27,12 @@ definePageMeta({
 const options = [
   {
     name: "Generate QR Code",
-    image: "/assets/assets/imgs/menu.png",
+    image: "../assets/imgs/menu.png",
     url: "/dashboard/operations/generate-qrcode"
   },
   {
     name: "Sales Report",
-    image: "/assets/assets/imgs/business-report.png",
+    image: "../assets/imgs/business-report.png",
     url: ''
   }
 ]
