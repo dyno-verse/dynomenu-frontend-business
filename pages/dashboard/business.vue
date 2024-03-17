@@ -9,23 +9,39 @@
 
 
     <div v-if="!isPending" class=" w-full my-4">
-      <h3 class="text-2xl my-4">Business Details</h3>
-      <div class="flex-row flex space-x-4 justify-center">
-        <div class="w-1/3 justify-center text-center">
-          <div class="border-2 self-center border-gray-400 h-48 rounded-lg bg-white">
-            <div
-                class="rounded-full shadow-lg h-36 w-36 z-30 mb--10 p-1 m-5 text-center justify-center self-center mx-10">
-              <img :src="businessInfo.logoUrl" class="rounded-full">
+      <div class="flex-row flex justify-start">
+        <div class="">
+          <div class="flex flex-col">
+            <div class="w-full flex flex-row justify-start w-3/5 mb-2 items-center text-center relative">
+
+              <object :data="businessInfo.bannerUrl"
+                      style="{object-fit: cover; height: 17rem; width: 100%;}"
+                      class="object-cover z-10 text-center justify-center rounded-lg">
+              </object>
+
+              <div class="absolute top-0 right-0 m-5 z-30">
+                <button type="button"
+                        class="text-white bg-red-100 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                  <svg class="w-6 h-6 text-red-400 dark:text-white" aria-hidden="true"
+                       xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                          d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/>
+                  </svg>
+
+                </button>
+              </div>
+
+
+              <div
+                  class="absolute bottom-0 left-0 rounded-full h-36 w-36 z-30 p-2 m-5 justify-start self-start mx-10">
+                <img :src="businessInfo.logoUrl" class="rounded-full">
+              </div>
+
             </div>
           </div>
-        </div>
-        <div class="w-2/3">
-          <div class="w-full flex flex-row justify-start w-4/5 mb-2 items-center text-center">
 
-            <object :data="businessInfo.bannerUrl"
-                    class="object-cover z-10 text-center w-4/5 justify-center rounded-lg"></object>
-          </div>
-          <div class="flex flex-col w-4/5 justify-start bg-white p-5 rounded-lg border-gray-400 border-2">
+
+          <div class="flex flex-col  justify-start bg-white p-5 rounded-lg border-gray-300 border">
             <div class="mb-5">
               <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Name</label>
               <input type="text" id="email"

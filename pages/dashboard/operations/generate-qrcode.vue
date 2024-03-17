@@ -5,23 +5,17 @@
     </div>
 
     <div class="flex flex-wrap w-full">
-      <div class="w-1/2 flex flex-wrap my-4">
+      <div class="flex flex-wrap my-4">
         <div class="">
           <input type="text" id="large-input"
                  v-model="tableNumber"
-                 class="block w-full mr-2 p-4 text-gray-900 border border-gray-300  bg-gray-50 text-base focus:ring-blue-500 rounded-l-lg focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
+                 class="block p-4 text-gray-900 border border-gray-300  bg-gray-50 text-base focus:ring-blue-500 rounded-lg focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
         </div>
-
-        <button type="button"
-                class="px-5 py-2.5 text-sm font-medium text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 rounded-r-lg text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
-          Enter table number
-        </button>
-
       </div>
 
       <div class="w-full">
         <div class="flex flex-wrap">
-          <div class="w-1/5  bg-white border-gray-500 border-2 rounded-lg m-1 text-center flex flex-col items-center justify-center"
+          <div class="w-1/5  bg-white border-gray-300 border rounded-lg m-1 text-center flex flex-col items-center justify-center"
                v-for="i in Number(tableNumber)">
             <p class="text-lg font-bold my-2">Table #{{ i }}</p>
             <img src="../../../assets/imgs/round-table.png" class="w-20">
@@ -82,6 +76,9 @@ import {Modal, ModalOptions} from "flowbite";
 import BreadCrumbNav from "~/components/units/Breadcrumb.vue";
 import Breadcrumb from "../components/units/Breadcrumb.vue";
 
+import QRCode from 'qrcode'
+
+
 const value = ref('qrcode')
 const level = ref<Level>('M')
 const renderAs = ref<RenderAs>('canvas')
@@ -98,6 +95,19 @@ onMounted(() => {
     closable: true
   };
   qrCodeModal.value = new Modal(qrCodeId.value, options);
+
+  // QRCode.to
+  //
+  // QRCode.toFile('path/to/filename.png', 'Some text', {
+  //   color: {
+  //     dark: '#00F',  // Blue dots
+  //     light: '#0000' // Transparent background
+  //   }
+  // }, function (err) {
+  //   if (err) throw err
+  //   console.log('done')
+  // })
+
 })
 
 definePageMeta({
