@@ -8,8 +8,6 @@ import {Iitem} from "~/repository/models/ApiResponse";
 class ItemModule extends HttpFactory {
     private RESOURCE = '/item';
 
-    // 'https://api.dynomenu.com/menu/ab7c92d5-1a13-4012-a57a-99e9cb465d83/detailed' \
-
 
     async updateItem(itemId: string, request: Iitem): Promise<IApiResponse<Iitem>> {
         return await this.call<IApiResponse<Iitem>>('PUT', `${this.RESOURCE}/${itemId}`, request);
