@@ -29,11 +29,11 @@ const buttonStyles = computed(() => {
   switch (props.type) {
     case ButtonTypes.Primary:
       // return 'bg-red-500 px-10 text-white font-bold text-center justify-center items-center py-4 rounded-lg w-full';
-      return 'w-full justify-center text-white bg-red-500 px-10 text-white font-bold  py-4 rounded-lg inline-flex items-center';
+      return 'w-full justify-center text-white bg-red-500 px-10 text-white font-medium  py-4 rounded-lg inline-flex items-center';
     case ButtonTypes.Secondary:
-      return 'border-red-500 border-2 px-10 font-bold text-red-500 py-4 rounded-lg';
+      return 'border-red-500 border px-10 font-medium text-red-500 py-4 rounded-lg';
   }
-  return 'border-red-500 border px-10 font-bold text-red-500 py-4 rounded-2xl'
+  return 'border-red-500 border px-10 font-medium text-red-500 py-4 rounded-2xl'
 })
 
 
