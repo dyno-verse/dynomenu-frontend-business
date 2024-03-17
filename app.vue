@@ -12,7 +12,7 @@
 
 <style>
 body {
-  background-color: #F2F2F2;
+  background-color: #f9fafb;
   color: rgba(0, 0, 0, 1);
 }
 

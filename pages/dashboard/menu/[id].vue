@@ -76,7 +76,7 @@
                     }}</span>
                 </div>
 
-                <p class="text-center text-black text-lg">{{ item.name }}</p>
+                <p class="text-center text-black text-lg text-wrap text-ellipsis overflow-hidden line-clamp-2">{{ item.name }}</p>
                 <h5 class="text-center text-black text-sm  font-extrabold">GHS {{ format('GHC', item.price) }}</h5>
               </div>
               <EmptyState v-else/>
