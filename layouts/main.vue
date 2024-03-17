@@ -62,7 +62,7 @@
           <li>
             <NuxtLink
                 to="/dashboard"
-                active-class="text-red-500"
+                active-class="text-red-500 bg-gray-50"
                 class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <svg class="w-6 h-6  dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -77,7 +77,7 @@
           <li>
             <NuxtLink
                 to="/dashboard/menu/"
-                active-class="text-red-500"
+                active-class="text-red-500 bg-gray-50"
                 class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <svg class="w-6 h-6  dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -93,7 +93,7 @@
           <li>
             <NuxtLink
                 to="/dashboard/business"
-                active-class="text-red-500"
+                active-class="text-red-500 bg-gray-50"
                 class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <svg class="w-6 h-6 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
@@ -108,7 +108,7 @@
           <li>
             <NuxtLink
                 to="/dashboard/operations"
-                active-class="text-red-500"
+                active-class="text-red-500 bg-gray-50"
                 class="flex items-center p-2 text-base font-medium text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700 group"
             >
               <svg class="w-6 h-6  dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"

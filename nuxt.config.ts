@@ -15,6 +15,7 @@ export default defineNuxtConfig({
     devtools: {enabled: true},
     modules: [
         // '@sidebase/nuxt-auth',
+        '@nuxt/image',
         '@nuxtjs/tailwindcss',
         'nuxt-snackbar'
     ],
@@ -37,6 +38,10 @@ export default defineNuxtConfig({
             autoprefixer: {},
         },
     },
+    image: {
+        quality: 50,
+        domains: ['nuxtjs.org'],
+    },
     // colorMode: {
     //     preference: 'system', // default value of $colorMode.preference
     //     fallback: 'light', // fallback value if not system preference found
@@ -47,5 +52,5 @@ export default defineNuxtConfig({
     //     classSuffix: '',
     //     storageKey: 'nuxt-color-mode'
     // }
-  ssr: false
+    ssr: false
 })

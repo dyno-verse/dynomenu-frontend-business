@@ -64,20 +64,30 @@
 
             <div class="flex flex-wrap w-full">
               <div v-if="categoryItems.items.length !== 0"
-                   class="bg-white border-gray-300 border  p-6 rounded-lg w-1/5 flex flex-col items-center mx-1 my-1 cursor-pointer"
+                   class="bg-white border-gray-300 border rounded-lg w-1/5 flex flex-col items-center mx-1 my-1 cursor-pointer"
                    v-for="(item,index) in categoryItems.items" @click="viewItem(item, index)">
 
-                <img v-if="item.imageUrl !== null" :src="item.imageUrl" class="w-24 h-24"/>
+                <div v-if="item.imageUrl !== null" class="rounded-t-lg bg-gray-100 w-full mb-2 p-2">
+                  <object :data="item.imageUrl"
+                          :style="{objectFit: 'contain', height: '7rem' ,width: '100%'}"
+                          class="object-cover z-10 text-center justify-center">
+                  </object>
+                </div>
+
                 <div v-else
-                     class="relative  inline-flex items-center justify-center w-24 h-24 overflow-hidden bg-gray-900 rounded-full dark:bg-gray-600">
+                     :style="{height: '8rem' ,width: '100%'}"
+                     class="relative px-5 inline-flex items-center justify-center rounded-t-lg mb-2 overflow-hidden bg-gray-900">
                   <span
                       class="font-medium text-gray-100 text-3xl dark:text-gray-300">{{
                       getFirstTwoCharacters(item.name)
                     }}</span>
                 </div>
 
-                <p class="text-center text-black text-lg text-wrap text-ellipsis overflow-hidden line-clamp-2">{{ item.name }}</p>
-                <h5 class="text-center text-black text-sm  font-extrabold">GHS {{ format('GHC', item.price) }}</h5>
+                <p class="text-center px-5 text-black text-lg text-wrap text-ellipsis overflow-hidden line-clamp-1">
+                  {{ item.name }}</p>
+                <h5 class="text-center px-5 pb-5 text-black text-sm  font-extrabold">GHS {{
+                    format('GHC', item.price)
+                  }}</h5>
               </div>
               <EmptyState v-else/>
             </div>
@@ -284,26 +294,50 @@
           </div>
           <!-- Modal body -->
           <div class="p-4 md:p-5">
-            <div class="w-full flex flex-col flex-row space-x-2 border-gray-200 text-center items-center self-center">
+            <div class="w-full flex flex-col flex-row  border-gray-200 text-center items-center self-center">
               <input type="file" ref="fileInput" class="hidden" @change="handleFileUpload">
-              <img v-if="editItem.imageUrl !== null" :src="editItem.imageUrl" class="h-48 w-48"/>
-              <div v-else
-                   class="relative  inline-flex items-center justify-center w-48 h-48 overflow-hidden bg-gray-900 rounded-full dark:bg-gray-600">
+              <div class="w-full relative bg-gray-50 p-3 mb-2 rounded-lg">
+
+                <object :data="editItem.imageUrl"
+                        v-if="editItem.imageUrl !== null"
+                        :style="{height:'15rem', width: '100%', objectFit: 'contain'}"
+                        class="object-cover z-10 text-center justify-center">
+                </object>
+
+                <div v-else
+                     :style="{height:'15rem'}"
+                     class="relative  inline-flex items-center justify-center overflow-hidden">
                 <span
-                    class="font-medium text-gray-100 text-6xl dark:text-gray-300">{{
+                    class="font-bold text-gray-600 text-6xl">{{
                     getFirstTwoCharacters(editItem.name)
                   }}</span>
-              </div>
+                </div>
 
-              <div class="flex flex-row items-center space-x-2">
-                <button class="bg-red-600 text-white p-2 rounded-lg my-2 text-sm" @click="openFileInput()">Select image
-                </button>
-                <svg @click="uploadImage(editItem.id)" class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
-                     xmlns="http://www.w3.org/2000/svg"
-                     fill="none" viewBox="0 0 24 24">
-                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4c0 .6.4 1 1 1h14c.6 0 1-.4 1-1v-4c0-.6-.4-1-1-1h-2M8 9l4-5 4 5m1 8h0"/>
-                </svg>
+                <div class="absolute top-0 right-0 flex flex-row space-x-2 m-2">
+                  <button class="bg-red-100 text-white py-1 px-2 rounded-lg text-sm"
+                          @click="openFileInput()">
+                    <svg class="w-6 h-6 text-red-400 dark:text-white" aria-hidden="true"
+                         xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                      <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="m3 16 5-7 6 6.5m6.5 2.5L16 13l-4.286 6M14 10h.01M4 19h16a1 1 0 0 0 1-1V6a1 1 0 0 0-1-1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1Z"/>
+                    </svg>
+                  </button>
+
+                  <div class="flex flex-row items-center">
+                    <button class="border-gray-200 border bg-white text-gray-700 py-1 px-2 rounded-lg text-sm"
+                            @click="uploadImage(editItem.id)">
+                      <svg class="w-6 h-6 text-gray-800 dark:text-white" aria-hidden="true"
+                           xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                        <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                              d="M12 5v9m-5 0H5a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2M8 9l4-5 4 5m1 8h.01"/>
+                      </svg>
+
+                    </button>
+                  </div>
+
+                </div>
+
+
               </div>
             </div>
             <div class="grid gap-4 mb-4 grid-cols-2">
@@ -357,7 +391,7 @@
 
               <button type="button"
                       @click="deleteItem(editItem.id)"
-                      class="text-white bg-gray-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      class="text-white bg-gray-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                      fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -377,16 +411,25 @@
          class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
       <div class="relative p-4 w-full max-w-md max-h-full">
         <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
-          <button type="button"
-                  @click="editMenuModal.hide()"
-                  class="absolute top-3 end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
-                  data-modal-hide="popup-modal">
-            <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
-              <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
-            </svg>
-            <span class="sr-only">Close modal</span>
-          </button>
+
+          <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+            <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+              Edit Menu
+            </h3>
+            <button type="button"
+                    @click="editMenuModal.hide()"
+                    class="absolute top-3 end-2.5 text-gray-400 me-2 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="popup-modal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                   viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+
+
           <div class="p-4 md:p-5 text-center">
 
             <div class="flex flex-col justify-start text-start">
@@ -425,7 +468,7 @@
                 Save
               </button>
               <button type="button"
-                      class="text-white bg-gray-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center me-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                      class="text-white bg-gray-200 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm p-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
                 <svg class="w-6 h-6 text-white dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                      fill="none" viewBox="0 0 24 24">
                   <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -589,7 +632,10 @@ const handleFileUpload = (event) => {
 
 const uploadImage = async (itemId: string) => {
   if (!selectedFile.value) {
-    console.error('No file selected');
+    snackbar.add({
+      type: 'error',
+      text: 'No file selected'
+    })
     return;
   }
 
