@@ -14,11 +14,12 @@ class BusinessModule extends HttpFactory {
         return await this.call<IApiResponse<IBusinessInfo>>('GET', `${this.RESOURCE}/${id}`)
     }
 
+
     async updateBusinessInfoById(id: string, data: IUpdateBusiness): Promise<IApiResponse<IBusinessInfo>> {
         return await this.call<IApiResponse<IBusinessInfo>>('PUT', `${this.RESOURCE}/${id}`, data)
     }
 
-    async updateBusinessInfoWithMedia(businessId: string, data: IUpdateBusiness): Promise<IApiResponse<IBusinessInfo>> {
+    async updateBusinessInfoWithMedia(businessId: string, data: FormData): Promise<IApiResponse<IBusinessInfo>> {
         return await this.call<IApiResponse<IBusinessInfo>>('PUT', `${this.RESOURCE}/${businessId}/photo-upload`, data)
     }
 }
