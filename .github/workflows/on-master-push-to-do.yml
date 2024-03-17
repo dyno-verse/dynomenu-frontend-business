@@ -1,4 +1,4 @@
-name: Deploy Backend Service
+name: Deploy Frontend business.dynomenu.com
 on:
   push:
     branches:
@@ -10,23 +10,27 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - name: Deploy to DO Droplet
-        uses: appleboy/ssh-action@master
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '18.x'
+          check-latest: true
+          cache-dependency-path: 'package-lock.json'
+      - run: npm ci
+      - run: npm run generate
+      - uses: appleboy/ssh-action@master
         with:
           host: ${{secrets.HOST}}
           username: ${{secrets.USERNAME}}
           key: ${{secrets.KEY}}
           script: |
-            export NVM_DIR=~/.nvm
-            source ~/.nvm/nvm.sh
-            echo "1 -- Remove existing directory"
-            rm -rf menu-service
-            echo "2 -- Cloning Repository"
-            git clone git@github.com:dyno-verse/web-business.git
-            cd web-business
-            echo "3 -- Installing dependencies"
-            npm install
-            echo "4 -- Building application"
-            npm run generate
-            echo "============================================="
-            echo "✅✅✅✅✅ App build complete"
+            echo "Remove existing files"
+            rm -rf apps/frontend-business
+      - uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{secrets.HOST}}
+          username: ${{secrets.USERNAME}}
+          key: ${{secrets.KEY}}
+          source: '.output/public/*'
+          target: "apps/frontend-business"
+          strip_components: 1
