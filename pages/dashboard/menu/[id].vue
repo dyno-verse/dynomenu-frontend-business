@@ -67,7 +67,8 @@
                    class="bg-white border-gray-300 border rounded-lg w-1/5 flex flex-col items-center mx-1 my-1 cursor-pointer"
                    v-for="(item,index) in categoryItems.items" @click="viewItem(item, index)">
 
-                <div v-if="item.imageUrl !== null" class="rounded-t-lg bg-gray-100 w-full mb-2 p-2">
+                <div v-if="item.imageUrl !== null" class="rounded-t-lg bg-gray-100 w-full mb-2 p-2"
+                     :style="{ backgroundColor:item.color}">
                   <object :data="item.imageUrl"
                           :style="{objectFit: 'contain', height: '7rem' ,width: '100%'}"
                           class="object-cover z-10 text-center justify-center">
@@ -85,7 +86,7 @@
 
                 <p class="text-center px-5 text-black text-lg text-wrap text-ellipsis overflow-hidden line-clamp-1">
                   {{ item.name }}</p>
-                <h5 class="text-center px-5 pb-5 text-black text-sm  font-extrabold">GHS {{
+                <h5 class="text-center px-5 pb-5 text-black text-sm  font-extrabold">{{
                     format('GHC', item.price)
                   }}</h5>
               </div>

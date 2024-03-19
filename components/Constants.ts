@@ -17,6 +17,10 @@ export const PredefinedColor = [
         value: '#fee2e2'
     },
     {
+        name: 'White',
+        value: '#ffffff'
+    },
+    {
         name: 'Blue',
         value: '#dbeafe'
     },
