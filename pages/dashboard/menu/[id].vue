@@ -75,10 +75,10 @@
                 </div>
 
                 <div v-else
-                     :style="{height: '8rem' ,width: '100%'}"
-                     class="relative px-5 inline-flex items-center justify-center rounded-t-lg mb-2 overflow-hidden bg-gray-900">
+                     :style="{height: '8rem' ,width: '100%', backgroundColor:item.color}"
+                     class="relative px-5 inline-flex items-center bg-gray-50 justify-center rounded-t-lg mb-2 overflow-hidden">
                   <span
-                      class="font-medium text-gray-100 text-3xl dark:text-gray-300">{{
+                      class="font-bold text-gray-800 text-3xl">{{
                       getFirstTwoCharacters(item.name)
                     }}</span>
                 </div>
@@ -296,7 +296,7 @@
           <div class="p-4 md:p-5">
             <div class="w-full flex flex-col flex-row  border-gray-200 text-center items-center self-center">
               <input type="file" ref="fileInput" class="hidden" @change="handleFileUpload">
-              <div class="w-full relative bg-gray-50 p-3 mb-2 rounded-lg">
+              <div class="w-full relative p-3 mb-2 rounded-lg bg-gray-50" :style="{backgroundColor:editItem.color}">
 
                 <object :data="editItem.imageUrl"
                         v-if="editItem.imageUrl !== null"

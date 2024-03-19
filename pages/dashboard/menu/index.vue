@@ -10,7 +10,7 @@
       <div v-if="!isPending">
         <div class="grid grid-cols-3 gap-4 content-start">
           <NuxtLink :to="`/dashboard/menu/${menu.id}`" v-for="menu in menus">
-            <div class="bg-white border border-gray-300 rounded-lg p-5 px-10" :style="{'backgroundColor': menu.color}">
+            <div class="bg-white border border-gray-300 rounded-lg p-5 px-10">
               <div class="flex flex-row justify-between space-x-2">
                 <div>
                   <h4 class="font-bold text-3xl">{{ menu.name }}</h4>
@@ -163,6 +163,8 @@ const getBusinessBySlug = (slug: string) => {
     menus.value = data.data.branches[0].menu;
     isPending.value = false;
 
+    console.log(menus.value)
+
   }).catch(error => {
     isPending.value = false;
 
@@ -179,6 +181,7 @@ const addMenu = () => {
   }
   //
   $api.menu.create(request).then(data => {
+
     menus.value.push(data.data)
     snackbar.add({
       type: 'success',

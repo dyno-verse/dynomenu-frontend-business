@@ -34,5 +34,13 @@ export const PredefinedColor = [
     {
         name: 'Gray',
         value: '#f3f4f6'
+    },
+    {
+        name: 'Cyan',
+        value: '#cffafe'
+    },
+    {
+        name:'Lime',
+        value: '#ecfccb'
     }
 ]
