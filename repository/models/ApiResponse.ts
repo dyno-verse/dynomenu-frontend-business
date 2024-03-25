@@ -118,3 +118,13 @@ export interface Iitem {
     imageUrl?: string;
     ingredients: string[];
 }
+
+export interface ILogin {
+    firstName: string
+    lastName: string
+    otherNames: string
+    email: string
+    accessToken: string
+    role: string
+}
+

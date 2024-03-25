@@ -11,7 +11,7 @@
         <div class="grid grid-cols-3 gap-4 content-start">
           <NuxtLink :to="`/dashboard/menu/${menu.id}`" v-for="menu in menus">
             <div class="border border-gray-300 rounded-lg p-5 px-10"
-            :style="{backgroundColor: menu.color}">
+                 :style="{backgroundColor: menu.color}">
               <div class="flex flex-row justify-between space-x-2">
                 <div>
                   <h4 class="font-bold text-3xl">{{ menu.name }}</h4>
@@ -129,6 +129,7 @@ import {Dropdown, DropdownOptions, initDropdowns, initFlowbite, initModals, Moda
 
 definePageMeta({
   layout: "main",
+  middleware: "auth"
 });
 
 import Breadcrumb from "../components/units/Breadcrumb.vue";

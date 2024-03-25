@@ -109,10 +109,19 @@
         </div>
         <div class="w-2/5 h-full flex flex-col space-y-4">
           <div class="bg-white border-gray-300 border  rounded-lg p-5">
+            <div v-if="qrCanvas">
+              <img :src="qrDataUrl" alt="QR Code"/>
+              <a :href="qrDataUrl" download="qrcode.png">
+                <button>Download QR Code</button>
+              </a>
+            </div>
+
             <div class="flex flex-row justify-between items-center">
               <h3>Get QR Code</h3>
 
+
               <button type="button"
+                      @click="generateQRCode()"
                       class="text-white bg-red-500 font-medium rounded-lg text-sm px-5 py-2.5">
                 Download
               </button>
@@ -170,7 +179,7 @@
                 <input type="color"
                        v-model="businessInfo.textColor"
                        class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700"
-                       id="hs-color-input"  title="Choose your color">
+                       id="hs-color-input" title="Choose your color">
               </div>
 
               <div>
@@ -179,7 +188,7 @@
                 <input type="color"
                        v-model="businessInfo.backgroundColor"
                        class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700"
-                       id="hs-color-input"  title="Choose your color">
+                       id="hs-color-input" title="Choose your color">
               </div>
             </div>
           </div>
@@ -200,7 +209,8 @@ import Button from "~/components/units/Button.vue";
 import {IBusinessInfo} from "~/repository/models/ApiResponse";
 import Loader from "~/components/units/Loader.vue";
 import {IUpdateBusiness} from "~/repository/models/inputModels";
-
+import QRCode from 'qrcode';
+import html2canvas from 'html2canvas';
 
 const {$api} = useNuxtApp();
 const businessInfo = ref({} as IBusinessInfo)
@@ -209,9 +219,12 @@ const snackbar = useSnackbar()
 const fileInput = ref(null)
 const selectedFile = ref(null)
 const businessId = '72f16ef5-6b78-4504-80bd-16aef1c52b46'
+const qrDataUrl = ref('dkdkdkdkdkkdkdkd');
+const qrCanvas = ref(null);
 
 definePageMeta({
   layout: "main",
+  middleware: "auth"
 });
 
 onMounted(() => {
@@ -301,6 +314,44 @@ const uploadImage = async (businessId: string) => {
 
   console.log('File selected:', selectedFile.value);
 };
+
+
+const generateQRCode = async () => {
+  const data = 'Your data here'; // Data to encode into QR code
+  try {
+    const qrCanvasElement = await generateQRCodeCanvas(data);
+    qrCanvas.value = qrCanvasElement;
+    const url = await convertCanvasToDataURL(qrCanvasElement);
+    qrDataUrl.value = url;
+  } catch (error) {
+    console.error('Error generating QR code:', error);
+  }
+};
+
+const generateQRCodeCanvas = (data: string): Promise<HTMLCanvasElement> => {
+  return new Promise((resolve, reject) => {
+    QRCode.toCanvas(data, (err, canvas) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(canvas);
+      }
+    });
+  });
+};
+
+const convertCanvasToDataURL = (canvas: HTMLCanvasElement): Promise<string> => {
+  return new Promise((resolve, reject) => {
+    html2canvas(canvas)
+        .then((canvas) => {
+          resolve(canvas.toDataURL('image/png'));
+        })
+        .catch((error) => {
+          reject(error);
+        });
+  });
+};
+
 
 const pages = [
   {

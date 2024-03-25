@@ -38,14 +38,29 @@
             </svg>
             <span class="sr-only">Toggle sidebar</span>
           </button>
-          <a href="https://dynomenu.com" class="flex items-center justify-between mr-4">
-            <img
-                src="../assets/imgs/logo.svg"
-                class="mr-3 h-8"
-                alt="Dyno Logo"
-            />
-            <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Dyno Menu</span>
-          </a>
+
+          <div class="w-full flex flex-row justify-between">
+
+            <a href="https://dynomenu.com" class="flex items-center justify-between mr-4">
+              <img
+                  src="../assets/imgs/logo.svg"
+                  class="mr-3 h-8"
+                  alt="Dyno Logo"
+              />
+              <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Dyno Menu</span>
+            </a>
+
+            <button type="button"
+                    @click="signOut()"
+                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
+              Red
+            </button>
+
+            {{ data }}
+            {{ status}}
+
+          </div>
+
         </div>
       </div>
     </nav>
@@ -152,6 +167,8 @@
 </template>
 
 <script lang="ts" setup>
+const {data, signIn, signOut, getSession,status} = useAuth()
+
 
 </script>
 

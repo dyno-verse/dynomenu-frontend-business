@@ -5,6 +5,7 @@ import MenuModule from "~/repository/modules/menu";
 import MenuCategoryModule from "~/repository/modules/category";
 import ItemModule from "~/repository/modules/item";
 import StaffModule from "~/repository/modules/staff";
+import AuthModule from "~/repository/modules/auth";
 
 
 /** ApiInstance interface provides us with good typing */
@@ -13,7 +14,8 @@ interface IApiInstance {
     menuCategory: MenuCategoryModule,
     menu: MenuModule,
     item: ItemModule,
-    staff: StaffModule
+    staff: StaffModule,
+    auth: AuthModule
 }
 
 export default defineNuxtPlugin(nuxtApp => {
@@ -36,7 +38,8 @@ export default defineNuxtPlugin(nuxtApp => {
         menuCategory: new MenuCategoryModule(apiFetcher),
         menu: new MenuModule(apiFetcher),
         item: new ItemModule(apiFetcher),
-        staff: new StaffModule(apiFetcher)
+        staff: new StaffModule(apiFetcher),
+        auth: new AuthModule(apiFetcher)
     };
 
     return {

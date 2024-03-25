@@ -147,6 +147,7 @@ const staff = ref([])
 
 definePageMeta({
   layout: "main",
+  middleware: "auth"
 });
 
 onMounted(() => {

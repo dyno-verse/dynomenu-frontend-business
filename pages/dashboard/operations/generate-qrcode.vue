@@ -167,6 +167,7 @@ const selectTableNumber = (table: number) => {
 
 definePageMeta({
   layout: "main",
+  middleware: "auth"
 });
 
 const pages = [

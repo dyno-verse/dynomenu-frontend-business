@@ -597,6 +597,8 @@ const categoryItems = ref({} as ICategoryItems);
 
 definePageMeta({
   layout: "main",
+  middleware: "auth"
+
 });
 
 

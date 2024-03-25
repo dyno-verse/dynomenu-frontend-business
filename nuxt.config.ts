@@ -2,6 +2,7 @@ import {resolve} from "node:path"
 
 // https://nuxt.com/docs/api/configuration/nuxt-config
 // @ts-ignore
+// @ts-ignore
 export default defineNuxtConfig({
     app: {
         baseURL: '/',
@@ -12,9 +13,12 @@ export default defineNuxtConfig({
         buildAssetsDir: 'assets',
         pageTransition: {name: 'page', mode: 'out-in'}
     },
+    routeRules: {
+        '/': { redirect: '/login' },
+    },
     devtools: {enabled: true},
     modules: [
-        // '@sidebase/nuxt-auth',
+        '@sidebase/nuxt-auth',
         '@nuxt/image',
         '@nuxtjs/tailwindcss',
         'nuxt-snackbar'
@@ -23,14 +27,35 @@ export default defineNuxtConfig({
         bottom: true,
         right: true,
         duration: 5000
-    }
-    // auth: {
-    //     // origin: process.env.ORIGIN,
-    //     isEnabled: true,
-    //     // globalAppMiddleware: true,
-    //     origin: 'https://business.dynomenu.com',
-    // }
-    ,
+    },
+    auth: {
+        // origin: process.env.ORIGIN,
+        isEnabled: true,
+        globalAppMiddleware: true,
+        origin: 'https://business.dynomenu.com',
+        token: {
+            signInResponseTokenPointer: '/accessToken'
+        },
+        strategies: {
+            local: {
+                scheme: 'local',
+                token: {
+                    property: 'token',
+                    required: true,
+                    type: 'Bearer'
+                },
+                user: {
+                    property: 'user', // the property in the API response that contains the user object
+                    autoFetch: true,
+                    // Add any additional properties you want to include here
+                    // e.g., name, role, etc.
+                    // Example:
+                    // name: 'name',
+                    // role: 'role',
+                },
+            }
+        }
+    },
     css: ['~/assets/css/main.css'],
     postcss: {
         plugins: {
