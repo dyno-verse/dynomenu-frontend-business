@@ -4,7 +4,7 @@ import BusinessModule from "../repository/modules/business";
 import MenuModule from "~/repository/modules/menu";
 import MenuCategoryModule from "~/repository/modules/category";
 import ItemModule from "~/repository/modules/item";
-
+import StaffModule from "~/repository/modules/staff";
 
 
 /** ApiInstance interface provides us with good typing */
@@ -12,7 +12,8 @@ interface IApiInstance {
     business: BusinessModule,
     menuCategory: MenuCategoryModule,
     menu: MenuModule,
-    item: ItemModule
+    item: ItemModule,
+    staff: StaffModule
 }
 
 export default defineNuxtPlugin(nuxtApp => {
@@ -21,7 +22,7 @@ export default defineNuxtPlugin(nuxtApp => {
     const fetchOptions: { headers: { Authorization: string; Accept: string }; baseURL: string } = {
         headers: {
             'Accept': 'application/json',
-            'Authorization': 'Basic Y3ZiZGZqeWU1dHdmZHM6NTY3ODY3MzZ0d2VoZGdkZmdzZGY='
+            'Authorization': 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkMWE0NTAzZC02Mjc1LTRjMzAtYWIxMC0yZGE4MTQ4OGRmMjgiLCJlbWFpbCI6Im1heGNvZmllQGdtYWlsLmNvbSIsImlhdCI6MTcxMTMyMTc1NCwiZXhwIjoxNzQyODc5MzU0fQ.khm_Z25VGAtfQfW0vJQxiVWqNvQEWNAHgADLO9mjS_U'
         },
         baseURL: "https://api.dynomenu.com",
     }
@@ -34,7 +35,8 @@ export default defineNuxtPlugin(nuxtApp => {
         business: new BusinessModule(apiFetcher),
         menuCategory: new MenuCategoryModule(apiFetcher),
         menu: new MenuModule(apiFetcher),
-        item: new ItemModule(apiFetcher)
+        item: new ItemModule(apiFetcher),
+        staff: new StaffModule(apiFetcher)
     };
 
     return {

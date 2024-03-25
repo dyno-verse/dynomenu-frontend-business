@@ -133,6 +133,7 @@
                 <label for="email"
                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Instagram</label>
                 <input type="text"
+                       v-model="businessInfo.instagramUrl"
                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                        placeholder="" required/>
               </div>
@@ -140,6 +141,7 @@
               <div class="mb-5 w-2/3">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Twitter</label>
                 <input type="text"
+                       v-model="businessInfo.twitterUrl"
                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                        placeholder="" required/>
               </div>
@@ -147,6 +149,7 @@
               <div class="mb-5 w-2/3">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Facebook</label>
                 <input type="text"
+                       v-model="businessInfo.facebookUrl"
                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                        placeholder="" required/>
               </div>
@@ -154,6 +157,7 @@
               <div class="mb-5 w-2/3">
                 <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Website</label>
                 <input type="text"
+                       v-model="businessInfo.websiteUrl"
                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                        placeholder="" required/>
               </div>
@@ -223,6 +227,10 @@ const updateBusinessInfo = (id: string) => {
   const request: IUpdateBusiness = {
     name: businessInfo.value.name,
     tag: businessInfo.value.tag,
+    twitterUrl: businessInfo.value.twitterUrl,
+    instagramUrl: businessInfo.value.instagramUrl,
+    facebookUrl: businessInfo.value.facebookUrl,
+    websiteUrl: businessInfo.value.websiteUrl,
     primaryColor: businessInfo.value.primaryColor
   }
 

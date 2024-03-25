@@ -10,6 +10,10 @@ export interface IBusinessInfo {
     country: string;
     logoUrl: string;
     bannerUrl: string,
+    facebookUrl: string,
+    instagramUrl: string,
+    twitterUrl: string,
+    websiteUrl: string,
     createdAt: string;
     updatedAt: string;
     branches: Branch[];

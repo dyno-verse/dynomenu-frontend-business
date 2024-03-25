@@ -40,5 +40,25 @@ export interface IUpdateBusiness {
     name: string;
     slug: string;
     tag: string;
+    websiteUrl: string;
+    twitterUrl: string;
+    facebookUrl: string;
+    instagramUrl: string;
     primaryColor: string;
 }
+
+export interface ICreateStaff {
+    fullName: string,
+    phoneNumber: string,
+    receiptName: string,
+    code: string
+}
+
+
+export interface IStaff {
+    userId: number
+    id: number
+    title: string
+    completed: boolean
+}
+

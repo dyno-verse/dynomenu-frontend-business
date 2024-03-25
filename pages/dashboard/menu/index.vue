@@ -10,7 +10,8 @@
       <div v-if="!isPending">
         <div class="grid grid-cols-3 gap-4 content-start">
           <NuxtLink :to="`/dashboard/menu/${menu.id}`" v-for="menu in menus">
-            <div class="bg-white border border-gray-300 rounded-lg p-5 px-10">
+            <div class="border border-gray-300 rounded-lg p-5 px-10"
+            :style="{backgroundColor: menu.color}">
               <div class="flex flex-row justify-between space-x-2">
                 <div>
                   <h4 class="font-bold text-3xl">{{ menu.name }}</h4>
@@ -136,7 +137,6 @@ import {ButtonTypes} from "~/components/Constants";
 import {BreadCrumbNav} from "#build/components/units/Breadcrumb.vue";
 import {ICreateMenu} from "~/repository/models/inputModels";
 import Loader from "~/components/units/Loader.vue";
-import category from "~/repository/modules/category";
 import {PredefinedColor} from "~/components/Constants";
 
 const {$api} = useNuxtApp();
