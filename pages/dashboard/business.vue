@@ -104,14 +104,6 @@
                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                        placeholder="" required/>
               </div>
-              <div class="mb-5 w-1/9">
-                <label for="email" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Theme
-                  Color</label>
-                <input type="color" id="email"
-                       v-model="businessInfo.primaryColor"
-                       class="shadow-sm h-11 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                       placeholder="" required/>
-              </div>
             </div>
           </div>
         </div>
@@ -160,6 +152,34 @@
                        v-model="businessInfo.websiteUrl"
                        class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
                        placeholder="" required/>
+              </div>
+            </div>
+          </div>
+          <div class="w-full bg-white  border border-gray-300 rounded-lg p-5">
+            <div class="flex flex-row justify-around">
+              <div>
+                <label for="hs-color-input" class="block text-sm font-medium mb-2 dark:text-white">Primary Color</label>
+                <input type="color"
+                       v-model="businessInfo.primaryColor"
+                       class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700"
+                       id="hs-color-input" title="Choose your color">
+              </div>
+
+              <div>
+                <label for="hs-color-input" class="block text-sm font-medium mb-2 dark:text-white">Text Color</label>
+                <input type="color"
+                       v-model="businessInfo.textColor"
+                       class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700"
+                       id="hs-color-input"  title="Choose your color">
+              </div>
+
+              <div>
+                <label for="hs-color-input" class="block text-sm font-medium mb-2 dark:text-white">Background
+                  Color</label>
+                <input type="color"
+                       v-model="businessInfo.backgroundColor"
+                       class="p-1 h-10 w-14 block bg-white border border-gray-200 cursor-pointer rounded-lg disabled:opacity-50 disabled:pointer-events-none dark:bg-slate-900 dark:border-gray-700"
+                       id="hs-color-input"  title="Choose your color">
               </div>
             </div>
           </div>
@@ -231,7 +251,9 @@ const updateBusinessInfo = (id: string) => {
     instagramUrl: businessInfo.value.instagramUrl,
     facebookUrl: businessInfo.value.facebookUrl,
     websiteUrl: businessInfo.value.websiteUrl,
-    primaryColor: businessInfo.value.primaryColor
+    primaryColor: businessInfo.value.primaryColor,
+    textColor: businessInfo.value.textColor,
+    backgroundColor: businessInfo.value.backgroundColor
   }
 
   $api.business.updateBusinessInfoById(id, request).then(data => {

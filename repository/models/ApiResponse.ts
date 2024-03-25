@@ -14,6 +14,8 @@ export interface IBusinessInfo {
     instagramUrl: string,
     twitterUrl: string,
     websiteUrl: string,
+    textColor: string,
+    backgroundColor: string,
     createdAt: string;
     updatedAt: string;
     branches: Branch[];

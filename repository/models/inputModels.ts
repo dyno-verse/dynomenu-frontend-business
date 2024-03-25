@@ -45,6 +45,8 @@ export interface IUpdateBusiness {
     facebookUrl: string;
     instagramUrl: string;
     primaryColor: string;
+    textColor: string;
+    backgroundColor: string;
 }
 
 export interface ICreateStaff {
