@@ -50,12 +50,21 @@ export interface IUpdateBusiness {
 }
 
 export interface ICreateStaff {
+    id: string,
     fullName: string,
     phoneNumber: string,
     receiptName: string,
-    code: string
+    code: string,
+    isActive: boolean
 }
 
+export interface IUpdateStaff {
+    id: string,
+    fullName: string,
+    phoneNumber: string,
+    receiptName: string,
+    isActive: boolean
+}
 
 export interface IStaff {
     userId: number

@@ -2,6 +2,7 @@ import HttpFactory from "~/repository/factory";
 import {IApiResponse} from "~/repository/models/appData";
 import {ICreateStaff} from "~/repository/models/inputModels";
 import {IStaff} from "~/repository/models/inputModels";
+import {IUpdateStaff} from "~/repository/models/inputModels";
 
 class StaffModule extends HttpFactory {
     private RESOURCE = '/staff';
@@ -14,6 +15,10 @@ class StaffModule extends HttpFactory {
 
     async create(branchId: string, data: ICreateStaff): Promise<IApiResponse<ICreateStaff>> {
         return await this.call('POST', `${this.RESOURCE}/branch/${branchId}`, data);
+    }
+
+    async updateStaff(staffId: string, data: IUpdateStaff): Promise<IApiResponse<ICreateStaff>> {
+        return await this.call('PUT', `${this.RESOURCE}/${staffId}`, data);
     }
 
 

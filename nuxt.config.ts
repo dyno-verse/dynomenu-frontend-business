@@ -36,25 +36,6 @@ export default defineNuxtConfig({
         token: {
             signInResponseTokenPointer: '/accessToken'
         },
-        strategies: {
-            local: {
-                scheme: 'local',
-                token: {
-                    property: 'token',
-                    required: true,
-                    type: 'Bearer'
-                },
-                user: {
-                    property: 'user', // the property in the API response that contains the user object
-                    autoFetch: true,
-                    // Add any additional properties you want to include here
-                    // e.g., name, role, etc.
-                    // Example:
-                    // name: 'name',
-                    // role: 'role',
-                },
-            }
-        }
     },
     css: ['~/assets/css/main.css'],
     postcss: {

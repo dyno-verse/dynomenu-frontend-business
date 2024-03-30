@@ -37,6 +37,18 @@
               {{ user.receiptName }}
             </td>
             <td>
+              <label class="inline-flex items-center cursor-pointer">
+                <input type="checkbox" v-model="user.isActive" class="sr-only peer" @change="toggleStaffActivity(user)"
+                       :checked="user.isActive">
+                <div
+                    class="relative w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-red-300 dark:peer-focus:ring-red-800 rounded-full peer  peer-checked:after:translate-x-full rtl:peer-checked:after:-translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:start-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all dark:border-gray-600 peer-checked:bg-red-600"></div>
+                <span class="ms-3 text-sm font-medium text-gray-900 dark:text-gray-300">{{
+                    user.isActive ? 'Active' : 'Inactive'
+                  }}</span>
+              </label>
+
+            </td>
+            <td>
               <button id="dropdownMenuIconButton" data-dropdown-toggle="dropdownDots"
                       class="inline-flex items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
                       type="button">
@@ -166,7 +178,9 @@ const createStaff = () => {
     fullName: createstaff.value.fullName,
     phoneNumber: createstaff.value.phoneNumber,
     receiptName: createstaff.value.receiptName,
-    code: generateRandomNumbers(4)
+    code: generateRandomNumbers(4),
+    isActive: true,
+    id: ''
   }
 
   $api.staff.create(branchId, data).then(data => {
@@ -178,6 +192,24 @@ const createStaff = () => {
     })
   }).catch(error => {
     console.log(error)
+  })
+}
+
+const toggleStaffActivity = (staff: ICreateStaff) => {
+  const request = {
+    fullName: staff.fullName,
+    phoneNumber: staff.phoneNumber,
+    code: "2390",
+    receiptName: staff.receiptName,
+    isActive: staff.isActive
+  }
+  $api.staff.updateStaff(staff.id, request).then(data => {
+    snackbar.add({
+      type: 'success',
+      text: 'Staff added'
+    })
+  }).catch(error => {
+
   })
 }
 
