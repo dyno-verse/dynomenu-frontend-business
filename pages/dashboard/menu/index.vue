@@ -142,6 +142,8 @@ import {PredefinedColor} from "~/components/Constants";
 
 const {$api} = useNuxtApp();
 const snackbar = useSnackbar();
+const {data, signOut, getSession} = useAuth()
+
 
 const newMenu = ref({} as ICreateMenu);
 const selectedMenu = ref('');
@@ -158,9 +160,9 @@ const pages = [
   } as BreadCrumbNav
 ]
 
-const getBusinessBySlug = (slug: string) => {
+const getBusinessById = (businessId: string) => {
   isPending.value = true;
-  $api.business.getBusinessInfoBySlug(slug).then(data => {
+  $api.business.getBusinessInfoById(businessId).then(data => {
     menus.value = data.data.branches[0].menu;
     isPending.value = false;
 
@@ -217,7 +219,8 @@ onMounted(() => {
   };
 
   modal.value = new Modal(crudModal.value, options);
-  getBusinessBySlug("dyno-pub")
+  //Get businessId from sidebase auth
+  getBusinessById(data.value.businessId)
 })
 
 

@@ -51,6 +51,7 @@ export interface IUpdateBusiness {
 
 export interface ICreateStaff {
     id: string,
+    position?: number,
     fullName: string,
     phoneNumber: string,
     receiptName: string,

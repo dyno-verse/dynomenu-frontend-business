@@ -39,34 +39,23 @@ const {$api} = useNuxtApp();
 const {signIn} = useAuth()
 const email = ref('')
 const password = ref('')
+const snackbar = useSnackbar();
 
 
 const mySignInHandler = async ({email, password}: { email: string, password: string }) => {
   const {error, url} = await signIn('credentials', {email, password, redirect: false})
   if (error) {
     // Do your custom error handling here
-    alert('You have made a terrible mistake while entering your credentials')
-  } else {
+    snackbar.add({
+      type: 'error',
+      text: 'Sorry! Authentication failed'
+    })  } else {
     // No error, continue with the sign in, e.g., by following the returned redirect:
     return navigateTo(url, {external: true})
   }
 }
 
 
-async function signInWithCredentials() {
-
-  // const credentials = {
-  //   email: username.value,
-  //   password: password.value
-  // }
-  // try {
-  //   await signIn('credentials', credentials)
-  //   // alert('Successfully logged in!')
-  //
-  // } catch (error) {
-  //   console.error(error)
-  // }
-}
 
 definePageMeta({
   auth: {

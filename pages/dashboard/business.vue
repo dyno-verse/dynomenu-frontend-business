@@ -70,7 +70,7 @@
               <input type="text" id="email"
                      v-model="businessInfo.name"
                      class="shadow-sm bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 dark:shadow-sm-light"
-                     placeholder="" required/>
+                     placeholder="" disabled/>
             </div>
             <div class="flex flex-wrap space-x-2">
               <div class="mb-5 w-1/3">
@@ -211,6 +211,8 @@ import Loader from "~/components/units/Loader.vue";
 import {IUpdateBusiness} from "~/repository/models/inputModels";
 import QRCode from 'qrcode';
 import html2canvas from 'html2canvas';
+const {data, signOut, getSession} = useAuth()
+
 
 const {$api} = useNuxtApp();
 const businessInfo = ref({} as IBusinessInfo)
@@ -218,7 +220,7 @@ const isPending = ref(true)
 const snackbar = useSnackbar()
 const fileInput = ref(null)
 const selectedFile = ref(null)
-const businessId = '72f16ef5-6b78-4504-80bd-16aef1c52b46'
+const businessId = data.value.businessId
 const qrDataUrl = ref('dkdkdkdkdkkdkdkd');
 const qrCanvas = ref(null);
 
@@ -228,7 +230,7 @@ definePageMeta({
 });
 
 onMounted(() => {
-  getBusinessById('72f16ef5-6b78-4504-80bd-16aef1c52b46');
+  getBusinessById(businessId);
 })
 
 

@@ -21,6 +21,9 @@ class StaffModule extends HttpFactory {
         return await this.call('PUT', `${this.RESOURCE}/${staffId}`, data);
     }
 
+    async deleteStaff(staffId: string): Promise<IApiResponse<ICreateStaff>> {
+        return await this.call('DELETE', `${this.RESOURCE}/${staffId}`);
+    }
 
 }
 

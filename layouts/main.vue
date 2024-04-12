@@ -1,9 +1,9 @@
 <template>
   <div class="antialiased">
     <nav
-        class="bg-white border-b border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
-      <div class="flex flex-wrap justify-between items-center">
-        <div class="flex justify-start items-center">
+        class="bg-white border-b w-full border-gray-200 px-4 py-2.5 dark:bg-gray-800 dark:border-gray-700 fixed left-0 right-0 top-0 z-50">
+      <div class="flex w-full flex-wrap flex-row justify-between items-center">
+        <div class="flex w-full justify-start items-center">
           <button
               data-drawer-target="drawer-navigation"
               data-drawer-toggle="drawer-navigation"
@@ -52,12 +52,19 @@
 
             <button type="button"
                     @click="signOut()"
-                    class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">
-              Red
-            </button>
+                    class="text-gray-400 bg-gray-100 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 ">
 
-            {{ data }}
-            {{ status}}
+              <div class="flex flex-row">
+
+                <p>Logout</p>
+
+                <svg class="w-6 h-6 text-gray-400" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+                     width="24" height="24" fill="none" viewBox="0 0 24 24">
+                  <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M16 12H4m12 0-4 4m4-4-4-4m3-4h2a3 3 0 0 1 3 3v10a3 3 0 0 1-3 3h-2"/>
+                </svg>
+              </div>
+            </button>
 
           </div>
 
@@ -167,7 +174,7 @@
 </template>
 
 <script lang="ts" setup>
-const {data, signIn, signOut, getSession,status} = useAuth()
+const {data, signIn, signOut, getSession, status} = useAuth()
 
 
 </script>
