@@ -109,13 +109,6 @@
         </div>
         <div class="w-2/5 h-full flex flex-col space-y-4">
           <div class="bg-white border-gray-300 border  rounded-lg p-5">
-            <div v-if="qrCanvas">
-              <img :src="qrDataUrl" alt="QR Code"/>
-              <a :href="qrDataUrl" download="qrcode.png">
-                <button>Download QR Code</button>
-              </a>
-            </div>
-
             <div class="flex flex-row justify-between items-center">
               <h3>Get QR Code</h3>
 
@@ -198,12 +191,48 @@
     <div v-else>
       <Loader class="w-full h-full py-48"/>
     </div>
+
+
+    <!-- Main modal -->
+    <div id="authentication-modal" ref="modalId" tabindex="-1" aria-hidden="true"
+         class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+      <div class="relative p-4 w-full max-w-md max-h-full">
+        <!-- Modal content -->
+        <div class="relative bg-white rounded-lg shadow dark:bg-gray-700">
+          <!-- Modal header -->
+          <div class="flex items-center justify-between p-4 md:p-5 border-b rounded-t dark:border-gray-600">
+            <h3 class="text-xl font-semibold text-gray-900 dark:text-white">
+              Generate QR Code
+            </h3>
+            <button type="button"
+                    @click="modal.hide()"
+                    class="end-2.5 text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 ms-auto inline-flex justify-center items-center dark:hover:bg-gray-600 dark:hover:text-white"
+                    data-modal-hide="authentication-modal">
+              <svg class="w-3 h-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
+                   viewBox="0 0 14 14">
+                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+              </svg>
+              <span class="sr-only">Close modal</span>
+            </button>
+          </div>
+          <!-- Modal body -->
+          <div class="p-5 w-full justify-center text-center flex-row flex">
+            <div v-if="qrCanvas">
+              <img :src="qrDataUrl" alt="QR Code"/>
+              <a :href="qrDataUrl" download="qrcode.png" class="mb-5">
+                <button>Download QR Code</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts" setup>
-import Breadcrumb from "~/components/units/Breadcrumb.vue";
-import {BreadCrumbNav} from "~/components/units/Breadcrumb.vue";
+import Breadcrumb, {BreadCrumbNav} from "~/components/units/Breadcrumb.vue";
 import {ButtonTypes} from "~/components/Constants";
 import Button from "~/components/units/Button.vue";
 import {IBusinessInfo} from "~/repository/models/ApiResponse";
@@ -211,6 +240,8 @@ import Loader from "~/components/units/Loader.vue";
 import {IUpdateBusiness} from "~/repository/models/inputModels";
 import QRCode from 'qrcode';
 import html2canvas from 'html2canvas';
+import {Modal, ModalOptions} from "flowbite";
+
 const {data, signOut, getSession} = useAuth()
 
 
@@ -221,8 +252,10 @@ const snackbar = useSnackbar()
 const fileInput = ref(null)
 const selectedFile = ref(null)
 const businessId = data.value.businessId
-const qrDataUrl = ref('dkdkdkdkdkkdkdkd');
+const qrDataUrl = ref('');
 const qrCanvas = ref(null);
+const modal = ref({})
+const modalId = ref(null)
 
 definePageMeta({
   layout: "main",
@@ -231,6 +264,14 @@ definePageMeta({
 
 onMounted(() => {
   getBusinessById(businessId);
+
+  const options: ModalOptions = {
+    placement: 'center',
+    backdrop: 'dynamic',
+    closable: true
+  };
+
+  modal.value = new Modal(modalId.value, options);
 })
 
 
@@ -319,12 +360,12 @@ const uploadImage = async (businessId: string) => {
 
 
 const generateQRCode = async () => {
-  const data = 'Your data here'; // Data to encode into QR code
+  modal.value.show()
+  const data = 'https://dynomenu.com/'+businessInfo.value.slug; // Data to encode into QR code
   try {
     const qrCanvasElement = await generateQRCodeCanvas(data);
     qrCanvas.value = qrCanvasElement;
-    const url = await convertCanvasToDataURL(qrCanvasElement);
-    qrDataUrl.value = url;
+    qrDataUrl.value = await convertCanvasToDataURL(qrCanvasElement);
   } catch (error) {
     console.error('Error generating QR code:', error);
   }
@@ -343,6 +384,7 @@ const generateQRCodeCanvas = (data: string): Promise<HTMLCanvasElement> => {
 };
 
 const convertCanvasToDataURL = (canvas: HTMLCanvasElement): Promise<string> => {
+  document.body.appendChild(canvas);
   return new Promise((resolve, reject) => {
     html2canvas(canvas)
         .then((canvas) => {
