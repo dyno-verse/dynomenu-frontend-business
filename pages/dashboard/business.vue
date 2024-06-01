@@ -3,7 +3,7 @@
     <div class="flex flex-row justify-between h-14">
       <Breadcrumb :pages="pages"/>
       <Button :type="ButtonTypes.Primary" :label="'Save changes'" data-modal-target="categoryModal"
-              data-modal-toggle="categoryModal" @click="updateBusinessInfo('72f16ef5-6b78-4504-80bd-16aef1c52b46')"/>
+              data-modal-toggle="categoryModal" @click="updateBusinessInfo('d5ad981e-0fd4-48e3-b4ab-3c71acdf1ff0')"/>
 
     </div>
 

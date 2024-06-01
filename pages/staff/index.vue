@@ -262,7 +262,7 @@ import {Dropdown, DropdownInterface, DropdownOptions, Modal, ModalOptions} from 
 import {ICreateStaff} from "~/repository/models/inputModels";
 import Loader from "~/components/units/Loader.vue";
 
-const branchId = '340328b2-cec0-4c5c-ba57-37a0f33dcf66'
+const branchId = 'f2b41c3e-e53b-4703-9653-4fb35a96abc2'
 
 const isPending = ref(true)
 const modal = ref({});

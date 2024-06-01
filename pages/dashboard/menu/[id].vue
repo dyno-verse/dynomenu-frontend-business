@@ -576,7 +576,7 @@ const fileInput = ref(null);
 const selectedFile = ref(null);
 
 
-const brandId = '340328b2-cec0-4c5c-ba57-37a0f33dcf66'
+const brandId = 'f2b41c3e-e53b-4703-9653-4fb35a96abc2'
 
 const menuId = ref("");
 const selectedCategoryId = ref("");
