@@ -129,7 +129,7 @@ import {Dropdown, DropdownOptions, initDropdowns, initFlowbite, initModals, Moda
 
 definePageMeta({
   layout: "main",
-  middleware: "auth"
+  middleware: ["auth", "setup"]
 });
 
 import Breadcrumb from "../components/units/Breadcrumb.vue";
@@ -143,6 +143,7 @@ import {PredefinedColor} from "~/components/Constants";
 const {$api} = useNuxtApp();
 const snackbar = useSnackbar();
 const {data, signOut, getSession} = useAuth()
+const branchId = localStorage.getItem('branchId') ?? ''
 
 
 const newMenu = ref({} as ICreateMenu);
@@ -166,8 +167,6 @@ const getBusinessById = (businessId: string) => {
     menus.value = data.data.branches[0].menu;
     isPending.value = false;
 
-    console.log(menus.value)
-
   }).catch(error => {
     isPending.value = false;
 
@@ -179,7 +178,7 @@ const addMenu = () => {
   const request: ICreateMenu = {
     name: newMenu.value.name,
     description: newMenu.value.description,
-    branchId: 'f2b41c3e-e53b-4703-9653-4fb35a96abc2',
+    branchId: branchId,
     color: newMenu.value.color
   }
   //
@@ -191,7 +190,6 @@ const addMenu = () => {
       text: 'Menu added'
     })
   }).catch(error => {
-    console.log(error.data);
   })
 }
 

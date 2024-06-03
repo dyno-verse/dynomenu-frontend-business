@@ -36,7 +36,7 @@ import {BreadCrumbNav} from "~/components/units/Breadcrumb.vue";
 
 definePageMeta({
   layout: "main",
-  middleware: "auth"
+  middleware: ["auth", "setup"]
 });
 
 const pages = [

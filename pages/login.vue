@@ -49,18 +49,18 @@ const mySignInHandler = async ({email, password}: { email: string, password: str
     snackbar.add({
       type: 'error',
       text: 'Sorry! Authentication failed'
-    })  } else {
+    })
+  } else {
     // No error, continue with the sign in, e.g., by following the returned redirect:
     return navigateTo(url, {external: true})
   }
 }
 
 
-
 definePageMeta({
   auth: {
     unauthenticatedOnly: true,
-    navigateAuthenticatedTo: '/dashboard',
+    navigateAuthenticatedTo: '/set-up',
   }
 })
 

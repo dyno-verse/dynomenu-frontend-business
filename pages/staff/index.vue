@@ -262,8 +262,7 @@ import {Dropdown, DropdownInterface, DropdownOptions, Modal, ModalOptions} from 
 import {ICreateStaff} from "~/repository/models/inputModels";
 import Loader from "~/components/units/Loader.vue";
 
-const branchId = 'f2b41c3e-e53b-4703-9653-4fb35a96abc2'
-
+const branchId = localStorage.getItem('branchId') ?? ''
 const isPending = ref(true)
 const modal = ref({});
 const modalId = ref(null)
@@ -278,7 +277,7 @@ const editModalId = ref(null)
 
 definePageMeta({
   layout: "main",
-  middleware: "auth"
+  middleware: ["auth", "setup"]
 });
 
 onMounted(() => {

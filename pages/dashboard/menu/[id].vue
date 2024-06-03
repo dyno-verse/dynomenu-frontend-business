@@ -576,7 +576,7 @@ const fileInput = ref(null);
 const selectedFile = ref(null);
 
 
-const brandId = 'f2b41c3e-e53b-4703-9653-4fb35a96abc2'
+const branchId = localStorage.getItem('branchId') ?? ''
 
 const menuId = ref("");
 const selectedCategoryId = ref("");
@@ -597,8 +597,7 @@ const categoryItems = ref({} as ICategoryItems);
 
 definePageMeta({
   layout: "main",
-  middleware: "auth"
-
+  middleware: ["auth", "setup"]
 });
 
 
@@ -764,7 +763,7 @@ const createCategory = () => {
     name: addCategoryData.value.name,
     description: addCategoryData.value.description,
     color: addCategoryData.value.color,
-    branchId: brandId
+    branchId: branchId
   }
   $api.menu.createCategoryUnderMenu(request, menuId.value).then(data => {
     getDetailedMenu(menuId.value, selectedCategoryId.value);
@@ -791,7 +790,7 @@ const createCategoryItem = () => {
     position: 0,
     price: Number(addItem.value.price),
     ingredients: [],
-    branchId: brandId
+    branchId: branchId
   }
 
   if (selectedCategoryId.value.length !== 0) {
@@ -896,7 +895,7 @@ const updateMenu = () => {
   const request: ICreateMenu = {
     name: menusDetails.value.name,
     description: menusDetails.value.description,
-    branchId: brandId,
+    branchId: branchId,
     color: menusDetails.value.color
   }
 

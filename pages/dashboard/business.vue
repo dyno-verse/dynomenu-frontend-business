@@ -3,7 +3,7 @@
     <div class="flex flex-row justify-between h-14">
       <Breadcrumb :pages="pages"/>
       <Button :type="ButtonTypes.Primary" :label="'Save changes'" data-modal-target="categoryModal"
-              data-modal-toggle="categoryModal" @click="updateBusinessInfo('d5ad981e-0fd4-48e3-b4ab-3c71acdf1ff0')"/>
+              data-modal-toggle="categoryModal" @click="updateBusinessInfo()"/>
 
     </div>
 
@@ -252,6 +252,7 @@ const snackbar = useSnackbar()
 const fileInput = ref(null)
 const selectedFile = ref(null)
 const businessId = data.value.businessId
+const branchId = localStorage.getItem('branchId') ?? ''
 const qrDataUrl = ref('');
 const qrCanvas = ref(null);
 const modal = ref({})
@@ -259,7 +260,7 @@ const modalId = ref(null)
 
 definePageMeta({
   layout: "main",
-  middleware: "auth"
+  middleware: ["auth", "setup"]
 });
 
 onMounted(() => {
@@ -299,7 +300,8 @@ const handleFileUpload = (event) => {
 };
 
 
-const updateBusinessInfo = (id: string) => {
+const updateBusinessInfo = () => {
+
   const request: IUpdateBusiness = {
     name: businessInfo.value.name,
     tag: businessInfo.value.tag,
@@ -312,7 +314,7 @@ const updateBusinessInfo = (id: string) => {
     backgroundColor: businessInfo.value.backgroundColor
   }
 
-  $api.business.updateBusinessInfoById(id, request).then(data => {
+  $api.business.updateBusinessInfoById(businessId, request).then(data => {
     businessInfo.value = data.data
     snackbar.add({
       type: 'success',
@@ -361,7 +363,7 @@ const uploadImage = async (businessId: string) => {
 
 const generateQRCode = async () => {
   modal.value.show()
-  const data = 'https://dynomenu.com/'+businessInfo.value.slug; // Data to encode into QR code
+  const data = 'https://dynomenu.com/' + businessInfo.value.slug; // Data to encode into QR code
   try {
     const qrCanvasElement = await generateQRCodeCanvas(data);
     qrCanvas.value = qrCanvasElement;

@@ -128,3 +128,21 @@ export interface ILogin {
     role: string
 }
 
+
+export interface IUser {
+    id:         string;
+    firstName:  string;
+    lastName:   string;
+    otherNames: null;
+    email:      string;
+    gender:     string;
+    businesses: Business[];
+}
+
+export interface Business {
+    id:       string;
+    name:     string;
+    branches: Branch[];
+}
+
+
